@@ -1,5 +1,4 @@
-# FirmaOnKayit
-Firmaların Ön Kayıt Sitesi
+﻿# Firmaların Ön Kayıt Sitesi
 
 - Bu projenin amacı büyük boyutlu bir kayıt sayfasının 4 sayfaya ayrılmasını temel alır.
 - Bu 4 sayfa, ajax ile asenkron çekilerek sayfanın ilk yüklenme hızını azaltmıştır. 
@@ -8,7 +7,7 @@ Firmaların Ön Kayıt Sitesi
 
 ## Kurulum
 
-- Database Model Entities çalışması için App_Data klasörü altında bulunan FirmaKayitDB'nin local MS-SQL Server'a bağlanması gerekmektedir.
+- Database Model Entities çalışması için App_Data klasörü altında bulunan "script.sql" script'in çalıştırılıp local MS-SQL Server'a bağlanması gerekmektedir.
 
 ## Sitenin 1. sayfası
 
