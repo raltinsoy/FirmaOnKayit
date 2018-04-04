@@ -1,0 +1,591 @@
+﻿@model FirmaOnKayit.Models.Sayfa3Model
+
+<style type="text/css">
+    input[type="checkbox"]{
+        margin-top:3px;
+    }
+</style>
+
+<h2>Ürün dropdown 0 zorunlu alan - kabul etme</h2>
+
+<script src="~/Scripts/select2.full.js"></script>
+
+<link href="~/Content/select2.min.css" rel="stylesheet" />
+<link href="~/Content/s2-docs.css" rel="stylesheet" />
+
+@using (Ajax.BeginForm("Sayfa3", "Kayit",
+    new AjaxOptions
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "sayfa3",
+        OnSuccess = "AjaxBasarili",
+        OnFailure = "AjaxHatali"
+    }, new { @id = "UcuncuForm" }))
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="off panel-title">ÜRÜN PORTFÖYÜ VE GTİP'LERİ</h3>
+            </div>
+            <div class="panel-body">
+                <h4>İŞTİGAL KONULARI</h4>
+                
+                <div class="col-md-6"> 
+                    Harici Mal Grubu
+                    <input type="checkbox" checked="checked" name="tumKayit" onclick="checkBox1Click(checked)" style="float:left;" />
+                </div>
+
+                <div class="col-md-6">Tanım</div>
+
+                <div class="form-group">
+                    <div class="col-md-6">
+                        @Html.DropDownList("grupListesi", (IEnumerable<SelectListItem>)ViewBag.MallarinListesi, "Grup Seçiniz", new { @class = "form-control", @onchange = "grupDegisti(value)" })
+                    </div>
+                    <div class="col-md-6">
+                        <div id="select2ajaxTopDiv">
+                            <select class="js-data-example-ajax form-control" id="tanimListesi1">
+                                <option>Tanıma Göre Ara</option>
+                            </select>
+                        </div>
+                        <div id="select2singleTopDiv">
+                            <select class="js-example-basic-single form-control" id="tanimListesi2"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+
+                <table class="col-md-12 table table-bordered" id="eklenenler">
+                    @if(Model!=null && Model.hariciMal_Tanimlari!=null)
+                    {
+                        var liste = Model.hariciMal_Tanimlari;
+                        for (int i = 0; i < liste.Count; i++)
+                        {
+                            <tr id="urun-@i" data-kod="@liste[i].Kod">
+                                <th>@Model.hariciMal_Tanimlari[i].Kod @Html.EditorFor(model => model.hariciMal_Tanimlari[i].Kod)</th>
+                                <th>@Model.hariciMal_Tanimlari[i].Tanim @Html.EditorFor(model => model.hariciMal_Tanimlari[i].Tanim)</th>
+                                <th>
+                                    <select class="form-control" id="urunPortListesi_@{@i}__FaaliyetSekli" name="urunPortListesi[@i].FaaliyetSekli">
+                                        @if (Model.urunPortListesi[i].FaaliyetSekli == 1)
+                                        { 
+                                            <option value="1" selected="selected">İmalatçı</option>
+                                            <option value="2">İthalatçı</option>
+                                            <option value="3">Satıcı</option>
+                                            <option value="4">Hizmet</option>
+                                            <option value="5">Hepsi</option>
+                                        }
+                                        else if (Model.urunPortListesi[i].FaaliyetSekli == 2)
+                                        {
+                                            <option value="1">İmalatçı</option>
+                                            <option value="2" selected="selected">İthalatçı</option>
+                                            <option value="3">Satıcı</option>
+                                            <option value="4">Hizmet</option>
+                                            <option value="5">Hepsi</option>
+                                        }
+                                        else if (Model.urunPortListesi[i].FaaliyetSekli == 3)
+                                        {
+                                            <option value="1">İmalatçı</option>
+                                            <option value="2">İthalatçı</option>
+                                            <option value="3" selected="selected">Satıcı</option>
+                                            <option value="4">Hizmet</option>
+                                            <option value="5">Hepsi</option>
+                                        }
+                                        else if (Model.urunPortListesi[i].FaaliyetSekli == 4)
+                                        {
+                                            <option value="1">İmalatçı</option>
+                                            <option value="2">İthalatçı</option>
+                                            <option value="3">Satıcı</option>
+                                            <option value="4" selected="selected">Hizmet</option>
+                                            <option value="5">Hepsi</option>
+                                        }
+                                        else if (Model.urunPortListesi[i].FaaliyetSekli == 5)
+                                        {
+                                            <option value="1">İmalatçı</option>
+                                            <option value="2">İthalatçı</option>
+                                            <option value="3">Satıcı</option>
+                                            <option value="4">Hizmet</option>
+                                            <option value="5" selected="selected">Hepsi</option>
+                                        }
+                                        
+                                        
+                                    </select>
+                                </th>
+                                <th>@Html.EditorFor(model => model.urunPortListesi[i].HariciMalTanimID)</th>
+                                <th>
+                                    <input type="hidden" name="hariciMal_Tanimlari[@i].HariciMalGrupID" value="0" />
+                                    <button type="button" class="btn btn-default" data-id="@i" onclick='urunSil(this.getAttribute("data-id"))'>
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sil
+                                    </button>
+                                </th>
+                            </tr>
+                            
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="off panel-title">ŞİRKET ÇALIŞANLARI İLETİŞİM BİLGİLERİ</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th></th>
+                        <th>Ad</th>
+                        <th>Soyad</th>
+                        <th>Cep Telefonu</th>
+                        <th>E-Posta</th>
+                        <th>Dahili</th>
+                    </tr>
+                    <tr>
+                        <th>Genel Müdür @Html.HiddenFor(model => model.sirketCalisanlari[0].CalisanTipi, new { @Value="GenelM" })</th>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[0].Ad, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[0].Ad, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[0].Soyad, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[0].Soyad, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[0].CepTel, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[0].CepTel, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[0].Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[0].Email, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[0].Dahili, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[0].Dahili, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Satış Müdürü @Html.HiddenFor(model => model.sirketCalisanlari[1].CalisanTipi, new { @Value = "SatisM" })</th>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[1].Ad, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[1].Ad, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[1].Soyad, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[1].Soyad, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[1].CepTel, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[1].CepTel, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[1].Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[1].Email, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[1].Dahili, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[1].Dahili, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Satış Temsilcisi @Html.HiddenFor(model => model.sirketCalisanlari[2].CalisanTipi, new { @Value = "SatisT" })</th>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[2].Ad, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[2].Ad, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[2].Soyad, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[2].Soyad, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[2].CepTel, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[2].CepTel, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[2].Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[2].Email, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[2].Dahili, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[2].Dahili, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Servis Müdürü @Html.HiddenFor(model => model.sirketCalisanlari[3].CalisanTipi, new { @Value = "ServisM" })</th>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[3].Ad, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[3].Ad, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[3].Soyad, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[3].Soyad, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[3].CepTel, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[3].CepTel, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[3].Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[3].Email, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[3].Dahili, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[3].Dahili, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Üretim Müdürü @Html.HiddenFor(model => model.sirketCalisanlari[4].CalisanTipi, new { @Value = "UretimM" })</th>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[4].Ad, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[4].Ad, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[4].Soyad, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[4].Soyad, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[4].CepTel, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[4].CepTel, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[4].Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[4].Email, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.sirketCalisanlari[4].Dahili, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sirketCalisanlari[4].Dahili, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="off panel-title">FORMU DOLDURAN KİŞİ BİLGİLERİ</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.genelBilgi3.FormDolAd, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.genelBilgi3.FormDolAd, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.genelBilgi3.FormDolAd, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.genelBilgi3.FormDolSoyad, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.genelBilgi3.FormDolSoyad, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.genelBilgi3.FormDolSoyad, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.genelBilgi3.FormDolUnvan, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.genelBilgi3.FormDolUnvan, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.genelBilgi3.FormDolUnvan, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.genelBilgi3.FormDolDepart, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.genelBilgi3.FormDolDepart, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.genelBilgi3.FormDolDepart, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.genelBilgi3.FormDolTel, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.genelBilgi3.FormDolTel, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.genelBilgi3.FormDolTel, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.genelBilgi3.FormDolFaks, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.genelBilgi3.FormDolFaks, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.genelBilgi3.FormDolFaks, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="İleri3" class="btn btn-primary" />
+        </div>
+    </div>
+}
+
+<script>
+    function AjaxBasarili() {
+        if ('@ViewBag.tabSayaci' == 4) {
+            $('#sayfa3 :input').change(function (e) {
+                $('#' + $(e.target).attr('id')).addClass("degisiklikVar");
+                //document.getElementById($(e.target).attr('id')).className += " degisiklikVar ";
+                tabKapat3();
+            });
+
+            // nav
+            $('#tabListesi li a[href="#sayfa4"]').attr('data-toggle', 'tab');
+            $('#tabListesi li:eq(3)').removeAttr("class");
+            $('#tabListesi a[href = "#sayfa4"]').tab('show');
+
+            document.getElementById("sonlandir").style["display"] = "";
+        }
+        else {
+            tabKapat3();
+        }
+    }
+
+    function AjaxHatali() {
+        tabKapat3();
+        alert("Ajax Hatası5");
+    }
+
+    function tabKapat3() {
+        $('#tabListesi li a[href="#sayfa4"]').removeAttr('data-toggle');
+        $('#tabListesi li:eq(3)').attr("class", "disabled");
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var tumKayitMi = $('input[name="tumKayit"]:checked').val();
+        if(tumKayitMi) {
+            $(".js-data-example-ajax").prop("disabled", true);
+            document.getElementById("select2ajaxTopDiv").style["display"] = "none";
+        }
+        else {
+            $(".js-example-basic-single").prop("disabled", true);
+            document.getElementById("select2singleTopDiv").style["display"] = "none";
+        }
+    });
+
+    function checkBox1Click(value) {
+        if (value) {
+            $(".js-example-basic-single").prop("disabled", false);
+            $(".js-data-example-ajax").prop("disabled", true);
+            document.getElementById("grupListesi").disabled = false;
+            document.getElementById("select2singleTopDiv").style["display"] = "";
+            document.getElementById("select2ajaxTopDiv").style["display"] = "none";
+        }
+        else {
+            $(".js-data-example-ajax").prop("disabled", false);
+            $(".js-example-basic-single").prop("disabled", true);
+            document.getElementById("grupListesi").disabled = true;
+            document.getElementById("select2ajaxTopDiv").style["display"] = "";
+            document.getElementById("select2singleTopDiv").style["display"] = "none";
+            $("#tanimListesi1").select2("open");
+        }
+    }
+
+    function grupDegisti(value) {
+        $.ajax({
+            url: '@Url.Action("tanimGetirJson")',
+            dataType: 'json',
+            type: 'POST',
+            data: { q: value, k: 1 }, // data-deger
+            success: function (result) {
+                $('#tanimListesi2').html("<option>Ürün Seçiniz</option>");
+                for (var i=0; i < result.length;i++)
+                {
+                    $("#tanimListesi2").append("<option value=" + result[i].ID + " data-kod=" + result[i].Kod + ">" + result[i].Tanim + "</option>");
+                }
+
+                $(".js-example-basic-single").select2({
+                    data: result
+                });
+                $("#tanimListesi2").select2("open");
+            },
+            error: function (a,b,c) {
+                alert("err"+a);
+            }
+        });
+    }
+
+    @{int say = 0;}
+    @if (Model != null && Model.hariciMal_Tanimlari != null)
+    {
+        say = Model.hariciMal_Tanimlari.Count;
+    }
+
+    var sayac = @say;
+
+    $(".js-example-basic-single").select2().on('select2:select', function (evt) {
+        if (evt.params.data.Tanim != undefined) {
+
+            var oncedenEklendiMi = false;
+            var div = document.getElementById("eklenenler");
+            var nodelist = div.getElementsByTagName("tr");
+            for (var i = 1; i <= nodelist.length; i++) {
+                var item = nodelist[i-1];
+                if (evt.params.data.Kod == item.getAttribute("data-kod")) {
+                    oncedenEklendiMi = true;
+                    break;
+                }
+            }
+
+            if (!oncedenEklendiMi) {
+                var eklenecek = "<tr id=urun-" + sayac + " data-kod=" + evt.params.data.Kod + ">" +
+                    "<th>" + evt.params.data.Kod + "<input class=\"text-box single-line\" name=\"hariciMal_Tanimlari[" + sayac + "].Kod\" value=\"" + evt.params.data.Kod + "\"></th>" +
+                    "<th>" + evt.params.data.Tanim + "<input class=\"text-box single-line\" name=\"hariciMal_Tanimlari[" + sayac + "].Tanim\" value=\"" + evt.params.data.Tanim + "\"></th>" +
+                    "<th><select class=\"form-control\" id=\"urunPortListesi_" + sayac + "__FaaliyetSekli\" name=\"urunPortListesi[" + sayac + "].FaaliyetSekli\">"+
+                        "<option value=\"1\">İmalatçı</option>" +
+                        "<option value=\"2\">İthalatçı</option>" +
+                        "<option value=\"3\">Satıcı</option>" +
+                        "<option value=\"4\">Hizmet</option>" +
+                        "<option value=\"5\">Hepsi</option>" +
+                        "</select> </th>" +
+                    "<th><input id=\"urunPortListesi_" + sayac + "__HariciMalTanimID\" name=\"urunPortListesi[" + sayac + "].HariciMalTanimID\" value=" + evt.params.data.ID + "></th>" +
+                    "<th> <input type=\"hidden\" name=\"hariciMal_Tanimlari[" + sayac + "].HariciMalGrupID\" value=\"0\" />"+
+                        "<button type=\"button\" class=\"btn btn-default\" data-id='" + sayac + "' onclick='urunSil(this.getAttribute(\"data-id\"))'>" +
+                        "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span> Sil </button></th>" +
+                    "</tr>";
+                $("#eklenenler").append(eklenecek);
+                sayac++
+            }
+        }
+    });
+
+    function urunSil(value)
+    {
+        var div = document.getElementById("eklenenler");
+        var nodelist = div.getElementsByTagName("tr");
+        var elemanSayisi = nodelist.length;
+
+        alert("value: " + value + " | elemanSayisi: " + elemanSayisi);
+
+        if (elemanSayisi == 0) {
+            alert("hatalı durum kontrol et");
+        }
+        else if (elemanSayisi == 1) { // 1 tane item var ise
+            console.log("a1");
+            $("#urun-" + value).remove();
+            sayac = 0;
+        }
+        else if (elemanSayisi == (parseInt(value) + 1)) { // sonda olma durumu
+            console.log("a2");
+            $("#urun-" + value).remove();
+            sayac--;
+        }
+        else { // Ortada olma durumu
+            console.log("a3");
+            $("#urun-" + value).remove();
+            for (var i = 1; i <= nodelist.length; i++) {
+                var item = nodelist[i-1];
+                item.id = "urun-" + (i - 1);
+                item.getElementsByTagName("th")[0].getElementsByTagName("input")[0].id = "hariciMal_Tanimlari[" + (i - 1) + "].Kod";
+                item.getElementsByTagName("th")[0].getElementsByTagName("input")[0].name = "hariciMal_Tanimlari[" + (i - 1) + "].Kod";
+                item.getElementsByTagName("th")[1].getElementsByTagName("input")[0].id = "hariciMal_Tanimlari[" + (i - 1) + "].Tanim";
+                item.getElementsByTagName("th")[1].getElementsByTagName("input")[0].name = "hariciMal_Tanimlari[" + (i - 1) + "].Tanim";
+                item.getElementsByTagName("th")[2].getElementsByTagName("select")[0].id = "urunPortListesi_" + (i - 1) + "__FaaliyetSekli";
+                item.getElementsByTagName("th")[2].getElementsByTagName("select")[0].name = "urunPortListesi[" + (i - 1) + "].FaaliyetSekli";
+                item.getElementsByTagName("th")[3].getElementsByTagName("input")[0].id = "urunPortListesi_" + (i - 1) + "__HariciMalTanimID";
+                item.getElementsByTagName("th")[3].getElementsByTagName("input")[0].name = "urunPortListesi[" + (i - 1) + "].HariciMalTanimID";
+                item.getElementsByTagName("th")[4].getElementsByTagName("input")[0].name = "hariciMal_Tanimlari[" + (i - 1)+ "].HariciMalGrupID";
+                item.getElementsByTagName("th")[4].getElementsByTagName("button")[0].setAttribute("data-id", (i - 1));
+            }
+
+            /*
+            var sonItem = div.lastElementChild;
+            sonItem.id = "urun-" + value;
+
+            sonItem.childNodes[2].childNodes[1].id = "urunPortListesi_" + value + "__FaaliyetSekli";
+            sonItem.childNodes[2].childNodes[1].name = "urunPortListesi[" + value + "].FaaliyetSekli";
+
+            sonItem.childNodes[3].childNodes[0].id = "urunPortListesi_" + value + "__HariciMalTanimID";
+            sonItem.childNodes[3].childNodes[0].name = "urunPortListesi[" + value + "].HariciMalTanimID";
+
+            sonItem.childNodes[4].childNodes[0].setAttribute("data-id", value);*/
+
+            sayac--;
+        }
+
+    }
+
+    var $ajax = $(".js-data-example-ajax");
+
+    function formatRepo(repo) {
+        if (repo.loading) return repo.text;
+
+        var markup = "<div class='select2-result-repository__title'>" + repo.Tanim +"</div>";
+
+        return markup;
+    }
+
+    function formatRepoSelection(repo) {
+        return repo.Tanim || repo.text;
+    }
+
+    $ajax.select2({
+        ajax: {
+            url: '@Url.Action("tanimGetirJson")',
+            dataType: 'json',
+            delay: 250,
+            type: "POST",
+            data: function (params) {
+                return {
+                    q: params.term, // search term
+                    k: 2
+                };
+            },
+            processResults: function (data) {
+                // parse the results into the format expected by Select2
+                // since we are using custom formatting functions we do not need to
+                // alter the remote JSON data, except to indicate that infinite
+                // scrolling can be used
+                return {
+                    results: data,
+                };
+            },
+            cache: true
+        },
+        escapeMarkup: function (markup) { return markup; },
+        minimumInputLength: 2,
+        maximumInputLength: 11,
+        templateResult: formatRepo,
+        templateSelection: formatRepoSelection
+
+    }).on('select2:select', function (evt) {
+        var oncedenEklendiMi = false;
+        var div = document.getElementById("eklenenler");
+        var nodelist = div.getElementsByTagName("tr");
+        for (var i = 1; i <= nodelist.length; i++) {
+            var item = nodelist[i-1];
+            if (evt.params.data.Kod == item.getAttribute("data-kod")) {
+                oncedenEklendiMi = true;
+                break;
+            }
+        }
+
+        if (!oncedenEklendiMi) {
+            var eklenecek = "<tr id=urun-" + sayac + " data-kod=" + evt.params.data.Kod + ">" +
+                        "<th>" + evt.params.data.Kod + "<input class=\"text-box single-line\" name=\"hariciMal_Tanimlari[" + sayac + "].Kod\" value=\"" + evt.params.data.Kod + "\"></th>" +
+                        "<th>" + evt.params.data.Tanim + "<input class=\"text-box single-line\" name=\"hariciMal_Tanimlari[" + sayac + "].Tanim\" value=\"" + evt.params.data.Tanim + "\"></th>" +
+                        "<th><select class=\"form-control\" id=\"urunPortListesi_" + sayac + "__FaaliyetSekli\" name=\"urunPortListesi[" + sayac + "].FaaliyetSekli\">"+
+                            "<option value=\"1\">İmalatçı</option>" +
+                            "<option value=\"2\">İthalatçı</option>" +
+                            "<option value=\"3\">Satıcı</option>" +
+                            "<option value=\"4\">Hizmet</option>" +
+                            "<option value=\"5\">Hepsi</option>" +
+                            "</select> </th>" +
+                        "<th><input id=\"urunPortListesi_" + sayac + "__HariciMalTanimID\" name=\"urunPortListesi[" + sayac + "].HariciMalTanimID\" value=" + evt.params.data.ID + "></th>" +
+                        "<th> <input type=\"hidden\" name=\"hariciMal_Tanimlari[" + sayac + "].HariciMalGrupID\" value=\"0\" />"+
+                            "<button type=\"button\" class=\"btn btn-default\" data-id='" + sayac + "' onclick='urunSil(this.getAttribute(\"data-id\"))'>" +
+                            "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span> Sil </button></th>" +
+                        "</tr>";
+            $("#eklenenler").append(eklenecek);
+            sayac++;
+        }
+    });
+
+</script>  
+

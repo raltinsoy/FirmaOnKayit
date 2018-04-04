@@ -1,0 +1,667 @@
+﻿@model FirmaOnKayit.Models.Sayfa1Model
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<style type="text/css">
+    .form-group {
+        margin-bottom: 5px;
+    }
+
+    .form-control {
+        height: 30px;
+        padding: 3px 16px;
+    }
+</style>
+
+
+@using (Ajax.BeginForm("Sayfa1", "Kayit",
+    new AjaxOptions
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "sayfa1",
+        OnSuccess = "AjaxBasarili",
+        OnFailure = "AjaxHatali"
+    }, new { id = "BirinciForm", enctype = "multipart/form-data" }))
+{
+    @*@Html.AntiForgeryToken()*@
+
+    <div class="form-horizontal">
+        @*<div class="validation-summary-errors text-danger">
+                <ul>
+                    <li style="display:none"></li>
+                </ul>
+            </div>*@
+
+        @{
+    SelectList SehirListesi = new SelectList(new List<SelectListItem> {
+        new SelectListItem{Selected = true,Text="Adana",Value="322"},
+        new SelectListItem{Selected = false,Text="Adıyaman",Value="416"},
+        new SelectListItem{Selected = false,Text="Afyon",Value="272"},
+        new SelectListItem{Selected = false,Text="Agri",Value="472"}
+    }, "Value", "Text");
+        }
+
+        @* firmaGenelBilgi *@
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Firma Bilgileri</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.firmaGenelBilgi.FirmaAdi, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.firmaGenelBilgi.FirmaAdi, new { htmlAttributes = new { @class = "form-control", @maxlength = 70 } })
+                        @Html.ValidationMessageFor(model => model.firmaGenelBilgi.FirmaAdi, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.firmaGenelBilgi.SirketTuru, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.RadioButtonFor(model => model.firmaGenelBilgi.SirketTuru, 1, new { @onclick = "sirketTuru(value)" }) LTD.
+                        @Html.RadioButtonFor(model => model.firmaGenelBilgi.SirketTuru, 2, new { @onclick = "sirketTuru(value)" }) A.Ş.
+                        @Html.RadioButtonFor(model => model.firmaGenelBilgi.SirketTuru, 3, new { @onclick = "sirketTuru(value)" }) Şahıs Firması
+                        @Html.RadioButtonFor(model => model.firmaGenelBilgi.SirketTuru, 4, new { @onclick = "sirketTuru(value)" }) Kollektif
+                        @Html.RadioButtonFor(model => model.firmaGenelBilgi.SirketTuru, 5, new { @onclick = "sirketTuru(value)" }) Adi Ortaklık
+                        @Html.RadioButtonFor(model => model.firmaGenelBilgi.SirketTuru, 6, new { @onclick = "sirketTuru(value)" }) Diğer
+                        <br />
+                        @Html.ValidationMessageFor(model => model.firmaGenelBilgi.SirketTuru, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.firmaGenelBilgi.KurulusYili, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        <select class="form-control" id="firmaGenelBilgi_KurulusYili" name="firmaGenelBilgi.KurulusYili">
+                            <option value="2016">2016</option>
+                            <option value="2015">2015</option>
+                            <option value="2014">2014</option>
+                            <option value="2013">2013</option>
+                            <option value="2012">2012</option>
+                            <option value="2011">2011</option>
+                            <option value="2010">2010</option>
+                            <option value="2009">2009</option>
+                            <option value="2008">2008</option>
+                            <option value="2007">2007</option>
+                            <option value="2006">2006</option>
+                            <option value="2005" selected="selected">2005</option>
+                            <option value="2004">2004</option>
+                            <option value="2003">2003</option>
+                            <option value="2002">2002</option>
+                            <option value="2001">2001</option>
+                            <option value="2000">2000</option>
+                            <option value="1999">1999</option>
+                            <option value="1998">1998</option>
+                            <option value="1997">1997</option>
+                            <option value="1996">1996</option>
+                            <option value="1995">1995</option>
+                            <option value="1994">1994</option>
+                            <option value="1993">1993</option>
+                            <option value="1992">1992</option>
+                            <option value="1991">1991</option>
+                            <option value="1990">1990</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.firmaGenelBilgi.KurulusYili, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.firmaGenelBilgi.IliskiliTaraf, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.RadioButtonFor(model => model.firmaGenelBilgi.IliskiliTaraf, true) Evet
+                            @Html.RadioButtonFor(model => model.firmaGenelBilgi.IliskiliTaraf, false, new { @checked = "checked" }) Hayır
+                            @Html.ValidationMessageFor(model => model.firmaGenelBilgi.IliskiliTaraf, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.firmaGenelBilgi.OrtakIliskisi, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.RadioButtonFor(model => model.firmaGenelBilgi.OrtakIliskisi, true, new { @onclick = "ortakRadio(value)" }) Evet
+                            @Html.RadioButtonFor(model => model.firmaGenelBilgi.OrtakIliskisi, false, new { @checked = "checked", @onclick = "ortakRadio(value)" }) Hayır
+
+                            @Html.DropDownList("firmaGenelBilgi.OrtakIliskisiId", (IEnumerable<SelectListItem>)ViewBag.personeller, new { @style = "display:none;", @class = "form-control" })
+
+                            @Html.ValidationMessageFor(model => model.firmaGenelBilgi.OrtakIliskisi, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.firmaGenelBilgi.Sermaye, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.firmaGenelBilgi.Sermaye, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.firmaGenelBilgi.Sermaye, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.firmaGenelBilgi.WebAdresi, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.firmaGenelBilgi.WebAdresi, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.firmaGenelBilgi.WebAdresi, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.firmaGenelBilgi.Email1, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.firmaGenelBilgi.Email1, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.firmaGenelBilgi.Email1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.firmaGenelBilgi.Email2, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.firmaGenelBilgi.Email2, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.firmaGenelBilgi.Email2, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.firmaGenelBilgi.Email3, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.firmaGenelBilgi.Email3, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.firmaGenelBilgi.Email3, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.firmaGenelBilgi.VergiDairesi, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.firmaGenelBilgi.VergiDairesi, new { htmlAttributes = new { @class = "form-control", @maxlength = 11 } })
+                        @Html.ValidationMessageFor(model => model.firmaGenelBilgi.VergiDairesi, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div id="vergiNo_Group" class="form-group">
+                    @Html.LabelFor(model => model.firmaGenelBilgi.VergiNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.firmaGenelBilgi.VergiNo, new { htmlAttributes = new { @class = "form-control", @maxlength = 10 } })
+                        @Html.ValidationMessageFor(model => model.firmaGenelBilgi.VergiNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div id="tcNo_Group" class="form-group">
+                    @Html.LabelFor(model => model.firmaGenelBilgi.TCNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.firmaGenelBilgi.TCNo, new { htmlAttributes = new { @class = "form-control", @maxlength = 11 } })
+                        @Html.ValidationMessageFor(model => model.firmaGenelBilgi.TCNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* merkezAdresi *@
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Firma Merkez Adresi</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.merkezAdresi.Sehir, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("merkezAdresi.Sehir", SehirListesi, new { @onchange = "sehirDegistir(value,'merkezAdresi')", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.merkezAdresi.Sehir, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.merkezAdresi.PostaKodu, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.merkezAdresi.PostaKodu, new { htmlAttributes = new { @class = "form-control", @maxlength = 10 } })
+                        @Html.ValidationMessageFor(model => model.merkezAdresi.PostaKodu, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.merkezAdresi.AcikAdres, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.merkezAdresi.AcikAdres, new { @class = "form-control", @maxlength = 180 })
+                        @Html.ValidationMessageFor(model => model.merkezAdresi.AcikAdres, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.merkezAdresi.Semt, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.merkezAdresi.Semt, new { htmlAttributes = new { @class = "form-control", @maxlength = 40 } })
+                        @Html.ValidationMessageFor(model => model.merkezAdresi.Semt, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.merkezAdresi.PostaKutusu, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.merkezAdresi.PostaKutusu, new { htmlAttributes = new { @class = "form-control", @maxlength = 10 } })
+                        @Html.ValidationMessageFor(model => model.merkezAdresi.PostaKutusu, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.merkezAdresi.Telefon1, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input id="merkezAdresi_Telefon1_A" disabled="disabled" class="form-control" style="display:inline;width:60px;" maxlength="3" />
+                        @Html.EditorFor(model => model.merkezAdresi.Telefon1, new { htmlAttributes = new { @class = "form-control", @style = "display:inline;width:215px;" } })
+                        @Html.ValidationMessageFor(model => model.merkezAdresi.Telefon1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.merkezAdresi.Telefon2, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input id="merkezAdresi_Telefon1_B" disabled="disabled" class="form-control" style="display:inline;width:60px;" maxlength="3" />
+                        @Html.EditorFor(model => model.merkezAdresi.Telefon2, new { htmlAttributes = new { @class = "form-control", @style = "display:inline;width:215px;" } })
+                        @Html.ValidationMessageFor(model => model.merkezAdresi.Telefon2, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.merkezAdresi.Telefon3, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input id="merkezAdresi_Telefon1_C" disabled="disabled" class="form-control" style="display:inline;width:60px;" maxlength="3" />
+                        @Html.EditorFor(model => model.merkezAdresi.Telefon3, new { htmlAttributes = new { @class = "form-control", @style = "display:inline;width:215px;" } })
+                        @Html.ValidationMessageFor(model => model.merkezAdresi.Telefon3, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.merkezAdresi.Mobil, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.merkezAdresi.Mobil, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.merkezAdresi.Mobil, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.merkezAdresi.Faks1, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input id="merkezAdresi_Faks1_A" disabled="disabled" class="form-control" style="display:inline;width:60px;" maxlength="3" />
+                        @Html.EditorFor(model => model.merkezAdresi.Faks1, new { htmlAttributes = new { @class = "form-control", @style = "display:inline;width:215px;" } })
+                        @Html.ValidationMessageFor(model => model.merkezAdresi.Faks1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.merkezAdresi.Faks2, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input id="merkezAdresi_Faks1_B" disabled="disabled" class="form-control" style="display:inline;width:60px;" maxlength="3" />
+                        @Html.EditorFor(model => model.merkezAdresi.Faks2, new { htmlAttributes = new { @class = "form-control", @style = "display:inline;width:215px;" } })
+                        @Html.ValidationMessageFor(model => model.merkezAdresi.Faks2, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.merkezAdresi.Faks3, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input id="merkezAdresi_Faks1_C" disabled="disabled" class="form-control" style="display:inline;width:60px;" maxlength="3" />
+                        @Html.EditorFor(model => model.merkezAdresi.Faks3, new { htmlAttributes = new { @class = "form-control", @style = "display:inline;width:215px;" } })
+                        @Html.ValidationMessageFor(model => model.merkezAdresi.Faks3, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* Şube Adresi *@
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+
+                @{ string disp = "none;"; }
+
+                @if (ViewBag.subeRadio == "0")
+                {
+                    disp = "none;";
+
+                    <h3 class="panel-title" style="display:inline;">
+                        Şube Adresi
+                        <input type="radio" onclick="radioClick(value, name)" name="subeAdresiEH" value="1" /> Var
+                        <input type="radio" onclick="radioClick(value, name)" name="subeAdresiEH" value="0" checked="checked" /> Yok
+                    </h3>
+                }
+                else
+                {
+                    disp = "block;";
+
+                    <h3 class="panel-title" style="display:inline;">
+                        Şube Adresi
+                        <input type="radio" onclick="radioClick(value, name)" name="subeAdresiEH" value="1" checked="checked" /> Var
+                        <input type="radio" onclick="radioClick(value, name)" name="subeAdresiEH" value="0" /> Yok
+                    </h3>
+                }
+
+            </div>
+            <div class="panel-body" id="subeAdresiEH_Id" style="display:@disp">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.subeAdresi.Sehir, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("subeAdresi.Sehir", SehirListesi, new { @onchange = "sehirDegistir(value,'subeAdresi')", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.subeAdresi.Sehir, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.subeAdresi.PostaKodu, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.subeAdresi.PostaKodu, new { htmlAttributes = new { @class = "form-control", @maxlength = 10 } })
+                        @Html.ValidationMessageFor(model => model.subeAdresi.PostaKodu, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.subeAdresi.AcikAdres, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.subeAdresi.AcikAdres, new { @class = "form-control", @maxlength = 180 })
+                        @Html.ValidationMessageFor(model => model.subeAdresi.AcikAdres, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.subeAdresi.Semt, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.subeAdresi.Semt, new { htmlAttributes = new { @class = "form-control", @maxlength = 40 } })
+                        @Html.ValidationMessageFor(model => model.subeAdresi.Semt, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.subeAdresi.PostaKutusu, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.subeAdresi.PostaKutusu, new { htmlAttributes = new { @class = "form-control", @maxlength = 10 } })
+                        @Html.ValidationMessageFor(model => model.subeAdresi.PostaKutusu, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.subeAdresi.Telefon1, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input id="subeAdresi_Telefon1_A" disabled="disabled" class="form-control" style="display:inline;width:60px;" maxlength="3" />
+                        @Html.EditorFor(model => model.subeAdresi.Telefon1, new { htmlAttributes = new { @class = "form-control", @style = "display:inline;width:215px;" } })
+                        @Html.ValidationMessageFor(model => model.subeAdresi.Telefon1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.subeAdresi.Telefon2, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input id="subeAdresi_Telefon1_B" disabled="disabled" class="form-control" style="display:inline;width:60px;" maxlength="3" />
+                        @Html.EditorFor(model => model.subeAdresi.Telefon2, new { htmlAttributes = new { @class = "form-control", @style = "display:inline;width:215px;" } })
+                        @Html.ValidationMessageFor(model => model.subeAdresi.Telefon2, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.subeAdresi.Mobil, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.subeAdresi.Mobil, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.subeAdresi.Mobil, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.subeAdresi.Faks1, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input id="subeAdresi_Faks1_A" disabled="disabled" class="form-control" style="display:inline;width:60px;" maxlength="3" />
+                        @Html.EditorFor(model => model.subeAdresi.Faks1, new { htmlAttributes = new { @class = "form-control", @style = "display:inline;width:215px;" } })
+                        @Html.ValidationMessageFor(model => model.subeAdresi.Faks1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        @* Fabrika Adresi *@
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+
+                @{ string dispF = "none;"; }
+
+                @if (ViewBag.fabrikaRadio == "0")
+                {
+                    dispF = "none;";
+            <h3 class="panel-title" style="display:inline;">
+                Fabrika Adresi
+                <input type="radio" onclick="radioClick(value, name)" name="fabrikaAdresiEH" value="1" /> Var
+                <input type="radio" onclick="radioClick(value, name)" name="fabrikaAdresiEH" value="0" checked="checked" /> Yok
+            </h3>
+                }
+                else
+                {
+                    dispF = "block;";
+            <h3 class="panel-title" style="display:inline;">
+                Fabrika Adresi
+                <input type="radio" onclick="radioClick(value, name)" name="fabrikaAdresiEH" value="1" checked="checked" /> Var
+                <input type="radio" onclick="radioClick(value, name)" name="fabrikaAdresiEH" value="0" /> Yok
+            </h3>
+                }
+            </div>
+            <div class="panel-body" id="fabrikaAdresiEH_Id" style="display:@dispF">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.fabrikaAdresi.Sehir, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("fabrikaAdresi.Sehir", SehirListesi, new { @onchange = "sehirDegistir(value,'fabrikaAdresi')", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.fabrikaAdresi.Sehir, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.fabrikaAdresi.PostaKodu, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.fabrikaAdresi.PostaKodu, new { htmlAttributes = new { @class = "form-control", @maxlength = 10 } })
+                        @Html.ValidationMessageFor(model => model.fabrikaAdresi.PostaKodu, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.fabrikaAdresi.AcikAdres, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.fabrikaAdresi.AcikAdres, new { @class = "form-control", @maxlength = 180 })
+                        @Html.ValidationMessageFor(model => model.fabrikaAdresi.AcikAdres, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.fabrikaAdresi.Semt, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.fabrikaAdresi.Semt, new { htmlAttributes = new { @class = "form-control", @maxlength = 40 } })
+                        @Html.ValidationMessageFor(model => model.fabrikaAdresi.Semt, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.fabrikaAdresi.PostaKutusu, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.fabrikaAdresi.PostaKutusu, new { htmlAttributes = new { @class = "form-control", @maxlength = 10 } })
+                        @Html.ValidationMessageFor(model => model.fabrikaAdresi.PostaKutusu, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.fabrikaAdresi.Telefon1, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input id="fabrikaAdresi_Telefon1_A" disabled="disabled" class="form-control" style="display:inline;width:60px;" maxlength="3" />
+                        @Html.EditorFor(model => model.fabrikaAdresi.Telefon1, new { htmlAttributes = new { @class = "form-control", @style = "display:inline;width:215px;" } })
+                        @Html.ValidationMessageFor(model => model.fabrikaAdresi.Telefon1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.fabrikaAdresi.Telefon2, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input id="fabrikaAdresi_Telefon1_B" disabled="disabled" class="form-control" style="display:inline;width:60px;" maxlength="3" />
+                        @Html.EditorFor(model => model.fabrikaAdresi.Telefon2, new { htmlAttributes = new { @class = "form-control", @style = "display:inline;width:215px;" } })
+                        @Html.ValidationMessageFor(model => model.fabrikaAdresi.Telefon2, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.fabrikaAdresi.Mobil, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.fabrikaAdresi.Mobil, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.fabrikaAdresi.Mobil, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.fabrikaAdresi.Faks1, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input id="fabrikaAdresi_Faks1_A" disabled="disabled" class="form-control" style="display:inline;width:60px;" maxlength="3" />
+                        @Html.EditorFor(model => model.fabrikaAdresi.Faks1, new { htmlAttributes = new { @class = "form-control", @style = "display:inline;width:215px;" } })
+                        @Html.ValidationMessageFor(model => model.fabrikaAdresi.Faks1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Yazışma Adresi</h3>
+            </div>
+            <div class="panel-body">
+                @Html.RadioButtonFor(model => model.firmaGenelBilgi.yazismaAdresi, 1, new { @id = "firmaGenelBilgi_yazismaAdresi" }) Merkez
+                @Html.RadioButtonFor(model => model.firmaGenelBilgi.yazismaAdresi, 2, new { @id = "subeAdresi_yazismaAdresi" }) Şube
+                @Html.RadioButtonFor(model => model.firmaGenelBilgi.yazismaAdresi, 3, new { @id = "fabrikaAdresi_yazismaAdresi" }) Fabrika
+                @Html.ValidationMessageFor(model => model.firmaGenelBilgi.yazismaAdresi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @* Sirket Ortakları *@
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">ŞİRKET ORTAKLARI (En yüksek hisseye sahip ilk 5 ortağı yazınız)</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.sirketOrtaklari[0].Adi, htmlAttributes: new { @class = "control-label col-md-1" })
+                    @Html.LabelFor(model => model.sirketOrtaklari[0].Soyadi, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.LabelFor(model => model.sirketOrtaklari[0].Ortaklik, htmlAttributes: new { @class = "control-label col-md-3" })
+                </div>
+
+                @for (int i = 0; i < 5; i++)
+                {
+            <div class="form-group">
+                <div class="col-md-10">
+                    @if (Model != null && Model.sirketOrtaklari != null && Model.sirketOrtaklari.Count > i)
+                    {
+                    <input class="form-control text-box single-line" id="sirketOrtaklari_@i-_adi" name="sirketOrtaklari[@i].Adi" style="display: inline;" type="text" value="@Model.sirketOrtaklari[i].Adi" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="sirketOrtaklari[@i].Adi" data-valmsg-replace="true"></span>
+                    <input class="form-control text-box single-line" id="sirketOrtaklari_@i-_soyadi" name="sirketOrtaklari[@i].Soyadi" style="display: inline;" type="text" value="@Model.sirketOrtaklari[i].Soyadi" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="sirketOrtaklari[@i].Soyadi" data-valmsg-replace="true"></span>
+                    <input class="form-control text-box single-line" id="sirketOrtaklari_@i-_Ortaklik" name="sirketOrtaklari[@i].Ortaklik" style="display: inline;" type="text" value="@Model.sirketOrtaklari[i].Ortaklik" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="sirketOrtaklari[@i].Ortaklik" data-valmsg-replace="true"></span>
+                    }
+                    else
+                    {
+                    <input class="form-control text-box single-line" id="sirketOrtaklari_@i-_adi" name="sirketOrtaklari[@i].Adi" style="display: inline;" type="text" value="" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="sirketOrtaklari[@i].Adi" data-valmsg-replace="true"></span>
+                    <input class="form-control text-box single-line" id="sirketOrtaklari_@i-_soyadi" name="sirketOrtaklari[@i].Soyadi" style="display: inline;" type="text" value="" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="sirketOrtaklari[@i].Soyadi" data-valmsg-replace="true"></span>
+                    <input class="form-control text-box single-line" id="sirketOrtaklari_@i-_Ortaklik" name="sirketOrtaklari[@i].Ortaklik" style="display: inline;" type="text" value="" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="sirketOrtaklari[@i].Ortaklik" data-valmsg-replace="true"></span>
+                    }
+
+                    @*@Html.EditorFor(model => model.sirketOrtaklari[i].Adi, new { htmlAttributes = new { @class = "form-control", @style = "display:inline;" } })
+                        @Html.ValidationMessageFor(model => model.sirketOrtaklari[i].Adi, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.sirketOrtaklari[i].Soyadi, new { htmlAttributes = new { @class = "form-control", @style = "display:inline;" } })
+                        @Html.ValidationMessageFor(model => model.sirketOrtaklari[i].Soyadi, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.sirketOrtaklari[i].Ortaklik, new { htmlAttributes = new { @class = "form-control", @style = "display:inline;" } })
+                        @Html.ValidationMessageFor(model => model.sirketOrtaklari[i].Ortaklik, "", new { @class = "text-danger" })*@
+                </div>
+            </div>
+                }
+
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="İleri" class="btn btn-primary" />
+            </div>
+        </div>*@
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="İleri" class="btn btn-primary" />
+        </div>
+    </div>
+}
+
+<script>
+    function AjaxBasarili() {
+        if ('@ViewBag.tabSayaci' == 2) {
+            $('#sayfa1 :input').change(function (e) {
+                $('#'+$(e.target).attr('id')).addClass("degisiklikVar");
+                //document.getElementById($(e.target).attr('id')).className += " degisiklikVar ";
+                tabKapat();
+            });
+
+            // nav
+            $('#tabListesi li a[href="#sayfa2"]').attr('data-toggle', 'tab');
+            $('#tabListesi li:eq(1)').removeAttr("class");
+            $('#tabListesi a[href = "#sayfa2"]').tab('show');
+        }
+        else {
+            tabKapat();
+        }
+    }
+
+    function AjaxHatali() {
+        tabKapat();
+        alert("Ajax Hatası");
+    }
+
+    function tabKapat() {
+        $('#tabListesi li a[href="#sayfa2"]').removeAttr('data-toggle');
+        $('#tabListesi li:eq(1)').attr("class", "disabled");
+        $('#tabListesi li a[href="#sayfa3"]').removeAttr('data-toggle');
+        $('#tabListesi li:eq(2)').attr("class", "disabled");
+        $('#tabListesi li a[href="#sayfa4"]').removeAttr('data-toggle');
+        $('#tabListesi li:eq(3)').attr("class", "disabled");
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        var sirketTuruSeciliOlan = $('input[name="firmaGenelBilgi.SirketTuru"]:checked').val();
+        if (sirketTuruSeciliOlan == 3) {
+            document.getElementById("firmaGenelBilgi_VergiNo").value = "";
+            document.getElementById("vergiNo_Group").style["display"] = "none";
+        }
+        else if (sirketTuruSeciliOlan == 1 || sirketTuruSeciliOlan == 2 || sirketTuruSeciliOlan == 4 || sirketTuruSeciliOlan == 6) {
+            document.getElementById("firmaGenelBilgi_TCNo").value = "";
+            document.getElementById("tcNo_Group").style["display"] = "none";
+        }
+
+        document.getElementById("merkezAdresi_Telefon1_A").value = document.getElementById("merkezAdresi_Sehir").value;
+        document.getElementById("merkezAdresi_Telefon1_B").value = document.getElementById("merkezAdresi_Sehir").value;
+        document.getElementById("merkezAdresi_Telefon1_C").value = document.getElementById("merkezAdresi_Sehir").value;
+        document.getElementById("merkezAdresi_Faks1_A").value = document.getElementById("merkezAdresi_Sehir").value;
+        document.getElementById("merkezAdresi_Faks1_B").value = document.getElementById("merkezAdresi_Sehir").value;
+        document.getElementById("merkezAdresi_Faks1_C").value = document.getElementById("merkezAdresi_Sehir").value;
+
+        document.getElementById("subeAdresi_Telefon1_A" + name).value = document.getElementById("subeAdresi_Sehir").value;
+        document.getElementById("subeAdresi_Telefon1_B" + name).value = document.getElementById("subeAdresi_Sehir").value;
+        document.getElementById("subeAdresi_Faks1_A").value = document.getElementById("subeAdresi_Sehir").value;
+
+        document.getElementById("fabrikaAdresi_Telefon1_A" + name).value = document.getElementById("fabrikaAdresi_Sehir").value;
+        document.getElementById("fabrikaAdresi_Telefon1_B" + name).value = document.getElementById("fabrikaAdresi_Sehir").value;
+        document.getElementById("fabrikaAdresi_Faks1_A").value = document.getElementById("fabrikaAdresi_Sehir").value;
+
+        document.getElementById("subeAdresi_yazismaAdresi").disabled = ($('input[name="subeAdresiEH"]:checked').val() == "0") ? true : false;
+        document.getElementById("fabrikaAdresi_yazismaAdresi").disabled = ($('input[name="fabrikaAdresiEH"]:checked').val() == "0") ? true : false;
+    });
+</script>

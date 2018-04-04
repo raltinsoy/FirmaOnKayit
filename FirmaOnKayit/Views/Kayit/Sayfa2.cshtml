@@ -1,0 +1,535 @@
+﻿@model FirmaOnKayit.Models.Sayfa2Model
+
+<style type="text/css">
+    .solaYasla{
+        float:left;
+    }
+    .form-horizontal .form-group{
+        margin-left:0;
+    }
+    input[type="checkbox"]{
+        margin-top:10px;
+    }
+
+    #satir2 tbody>tr>td{
+        padding:8px;
+    }
+
+    fieldset.scheduler-border {
+        border: 1px groove #ddd !important;
+        padding: 0 1.4em 1.4em 1.4em !important;
+        margin: 0 0 1.5em 0 !important;
+        -webkit-box-shadow: 0px 0px 0px 0px #000;
+        box-shadow: 0px 0px 0px 0px #000;
+    }
+    legend.scheduler-border {
+        width:auto;
+        border-bottom:none;
+    }
+
+</style>
+
+<h2>KaliteSistemiBelgesi EVET HAYIR post ta hatırlamıyor</h2>
+
+@using (Ajax.BeginForm("Sayfa2", "Kayit",
+    new AjaxOptions
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "sayfa2",
+        OnSuccess = "AjaxBasarili",
+        OnFailure = "AjaxHatali"
+    }, new { @id = "IkinciForm" }))
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="off panel-title">Banka Bilgileri</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-inline form-group" style="margin-left:13px;">
+                    <div class="panel-group">
+                        @Html.LabelFor(model => model.bankaBilgileri[0].BankaKodu, htmlAttributes: new { @class = "control-label col-md-1" })
+                        <div class="col-md-3">
+                            @Html.DropDownList("bankaBilgileri[0].BankaKodu", (IEnumerable<SelectListItem>)ViewBag.bankalar, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.bankaBilgileri[0].BankaKodu, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="panel-group">
+                        @Html.LabelFor(model => model.bankaBilgileri[0].IbanNo, htmlAttributes: new { @class = "control-label solaYasla" })
+                        <div class="col-md-3">
+                            @Html.EditorFor(model => model.bankaBilgileri[0].IbanNo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bankaBilgileri[0].IbanNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="panel-group">
+                        @Html.LabelFor(model => model.bankaBilgileri[0].ParaBirimiKodu, htmlAttributes: new { @class = "control-label col-md-1" })
+                        <div class="col-md-3">
+                            @Html.DropDownList("bankaBilgileri[0].ParaBirimiKodu", (IEnumerable<SelectListItem>)ViewBag.paraBirimleri, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.bankaBilgileri[0].ParaBirimiKodu, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-inline form-group">
+                    <div class="panel-group">
+                        <input type="checkbox" checked="@ViewBag.banka1Sec" name="banka1CheckBox" onclick="bankaSecme('bankaBilgileri_1')" value="true" style="float:left;" />
+                        @Html.LabelFor(model => model.bankaBilgileri[1].BankaKodu, htmlAttributes: new { @class = "control-label col-md-1" })
+                        <div class="col-md-3">
+                            @Html.DropDownList("bankaBilgileri[1].BankaKodu", (IEnumerable<SelectListItem>)ViewBag.bankalar, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.bankaBilgileri[1].BankaKodu, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="panel-group">
+                        @Html.LabelFor(model => model.bankaBilgileri[1].IbanNo, htmlAttributes: new { @class = "control-label solaYasla" })
+                        <div class="col-md-3">
+                            @Html.EditorFor(model => model.bankaBilgileri[1].IbanNo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bankaBilgileri[1].IbanNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="panel-group">
+                        @Html.LabelFor(model => model.bankaBilgileri[1].ParaBirimiKodu, htmlAttributes: new { @class = "control-label col-md-1" })
+                        <div class="col-md-3">
+                            @Html.DropDownList("bankaBilgileri[1].ParaBirimiKodu", (IEnumerable<SelectListItem>)ViewBag.paraBirimleri, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.bankaBilgileri[1].ParaBirimiKodu, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-inline form-group">
+                    <div class="panel-group">
+                        <input type="checkbox" name="banka2CheckBox" checked="@ViewBag.banka2Sec" onclick="bankaSecme('bankaBilgileri_2')" value="true" style="float:left;" />
+                        @Html.LabelFor(model => model.bankaBilgileri[2].BankaKodu, htmlAttributes: new { @class = "control-label col-md-1" })
+                        <div class="col-md-3">
+                            @Html.DropDownList("bankaBilgileri[2].BankaKodu", (IEnumerable<SelectListItem>)ViewBag.bankalar, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.bankaBilgileri[2].BankaKodu, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="panel-group">
+                        @Html.LabelFor(model => model.bankaBilgileri[2].IbanNo, htmlAttributes: new { @class = "control-label solaYasla" })
+                        <div class="col-md-3">
+                            @Html.EditorFor(model => model.bankaBilgileri[2].IbanNo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.bankaBilgileri[2].IbanNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="panel-group">
+                        @Html.LabelFor(model => model.bankaBilgileri[2].ParaBirimiKodu, htmlAttributes: new { @class = "control-label col-md-1" })
+                        <div class="col-md-3">
+                            @Html.DropDownList("bankaBilgileri[2].ParaBirimiKodu", (IEnumerable<SelectListItem>)ViewBag.paraBirimleri, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.bankaBilgileri[2].ParaBirimiKodu, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="off panel-title"></h3>
+            </div>
+            <div class="panel-body">
+                <table id="satir2">
+                    <tr>
+                        <td>@Html.LabelFor(model => model.genelBilgiSayfa2.SektorID, htmlAttributes: new { @class = "control-label" })</td>
+                        <td>
+                            @Html.DropDownList("genelBilgiSayfa2.SektorID", (IEnumerable<SelectListItem>)ViewBag.sektor, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.SektorID, "", new { @class = "text-danger" })
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(model => model.genelBilgiSayfa2.FirmaFaliyetSekli, htmlAttributes: new { @class = "control-label" })</td>
+                        <td>
+                            @Html.DropDownList("genelBilgiSayfa2.FirmaFaliyetSekli",
+                        new List<SelectListItem>
+                        {
+                            new SelectListItem{Text="İmalatçı",Value="1"},
+                            new SelectListItem{Text="İthalatçı",Value="2"},
+                            new SelectListItem{Text="Satıcı",Value="3"},
+                            new SelectListItem{Text="Hizmet",Value="5"},
+                            new SelectListItem{Text="Hepsi",Value="7"}
+                        },
+                        new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.FirmaFaliyetSekli, "", new { @class = "text-danger" })
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(model => model.genelBilgiSayfa2.SirketCirosu, htmlAttributes: new { @class = "control-label" })</td>
+                        <td>
+                            @Html.EditorFor(model => model.genelBilgiSayfa2.SirketCirosu, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.SirketCirosu, "", new { @class = "text-danger" })
+                        </td>
+                        <td>@Html.LabelFor(model => model.genelBilgiSayfa2.SirketCiroYili, htmlAttributes: new { @class = "control-label" })</td>
+                        <td>
+                            <select class="form-control" id="genelBilgiSayfa2_SirketCiroYili" name="genelBilgiSayfa2.SirketCiroYili">
+                                <option value="2016">2016</option>
+                                <option value="2015">2015</option>
+                                <option value="2014">2014</option>
+                                <option value="2013">2013</option>
+                                <option value="2012">2012</option>
+                                <option value="2011">2011</option>
+                                <option value="2010">2010</option>
+                                <option value="2009">2009</option>
+                                <option value="2008">2008</option>
+                                <option value="2007">2007</option>
+                                <option value="2006">2006</option>
+                                <option value="2005" selected="selected">2005</option>
+                                <option value="2004">2004</option>
+                                <option value="2003">2003</option>
+                                <option value="2002">2002</option>
+                                <option value="2001">2001</option>
+                                <option value="2000">2000</option>
+                                <option value="1999">1999</option>
+                                <option value="1998">1998</option>
+                                <option value="1997">1997</option>
+                                <option value="1996">1996</option>
+                                <option value="1995">1995</option>
+                                <option value="1994">1994</option>
+                                <option value="1993">1993</option>
+                                <option value="1992">1992</option>
+                                <option value="1991">1991</option>
+                                <option value="1990">1990</option>
+                            </select>
+                        </td>
+                        <td colspan="2">@Html.ValidationMessageFor(model => model.genelBilgiSayfa2.SirketCiroYili, "", new { @class = "text-danger" })</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>@Html.LabelFor(model => model.genelBilgiSayfa2.ToplamCalisanSayisi, htmlAttributes: new { @class = "control-label" })</td>
+                        <td>
+                            @Html.EditorFor(model => model.genelBilgiSayfa2.ToplamCalisanSayisi, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.ToplamCalisanSayisi, "", new { @class = "text-danger" })
+                        </td>
+                        <td>@Html.LabelFor(model => model.genelBilgiSayfa2.IdariCalisan, htmlAttributes: new { @class = "control-label" })</td>
+                        <td>
+                            @Html.EditorFor(model => model.genelBilgiSayfa2.IdariCalisan, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.IdariCalisan, "", new { @class = "text-danger" })
+                        </td>
+                        <td>@Html.LabelFor(model => model.genelBilgiSayfa2.Uretim, htmlAttributes: new { @class = "control-label" })</td>
+                        <td>
+                            @Html.EditorFor(model => model.genelBilgiSayfa2.Uretim, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.Uretim, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>@Html.LabelFor(model => model.genelBilgiSayfa2.OnYilFazlaPers, htmlAttributes: new { @class = "control-label" })</td>
+                        <td>
+                            @Html.EditorFor(model => model.genelBilgiSayfa2.OnYilFazlaPers, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.OnYilFazlaPers, "", new { @class = "text-danger" })
+                        </td>
+                        <td>@Html.LabelFor(model => model.genelBilgiSayfa2.Satis, htmlAttributes: new { @class = "control-label" })</td>
+                        <td>
+                            @Html.EditorFor(model => model.genelBilgiSayfa2.Satis, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.Satis, "", new { @class = "text-danger" })
+                        </td>
+                        <td>@Html.LabelFor(model => model.genelBilgiSayfa2.Kalite, htmlAttributes: new { @class = "control-label" })</td>
+                        <td>
+                            @Html.EditorFor(model => model.genelBilgiSayfa2.Kalite, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.Kalite, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="off panel-title"></h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.genelBilgiSayfa2.BagimsizDenetleme, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.RadioButtonFor(model => model.genelBilgiSayfa2.BagimsizDenetleme, true) Evet
+                        @Html.RadioButtonFor(model => model.genelBilgiSayfa2.BagimsizDenetleme, false, new { @checked = "checked" }) Hayır
+                        @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.BagimsizDenetleme, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.genelBilgiSayfa2.TedarikciKaliteYonetim, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.RadioButtonFor(model => model.genelBilgiSayfa2.TedarikciKaliteYonetim, true) Evet
+                        @Html.RadioButtonFor(model => model.genelBilgiSayfa2.TedarikciKaliteYonetim, false, new { @checked = "checked" }) Hayır
+                        @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.TedarikciKaliteYonetim, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.genelBilgiSayfa2.KaliteSistemiBelgesi, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.RadioButtonFor(model => model.genelBilgiSayfa2.KaliteSistemiBelgesi, true, new { @onclick = "acKalite()" }) Evet
+                        @Html.RadioButtonFor(model => model.genelBilgiSayfa2.KaliteSistemiBelgesi, false, new { @checked="checked", @onclick = "kapaKalite()" }) Hayır
+                        @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.KaliteSistemiBelgesi, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <br />
+
+                <fieldset id="KaliteBelgeleri" style="display:none;" class="col-md-7 scheduler-border">
+                    <legend class="scheduler-border">Kalite Belgeleri</legend>
+                    <table class="table table-hover table-striped">
+                        <tr>
+                            <th>Belge</th>
+                            <th>Belgelendirme Kuruluşu</th>
+                            <th>Geçerlilik Süre Sonu</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(model => model.genelBilgiSayfa2.ISO9001_K, htmlAttributes: new { @class = "control-label col-md-2" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.genelBilgiSayfa2.ISO9001_K, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.ISO9001_K, "", new { @class = "text-danger" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.genelBilgiSayfa2.ISO9001_Sure, new { htmlAttributes = new { @class = "form-control", @placeholder = "Gün/Ay/Yıl" } })
+                                @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.ISO9001_Sure, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(model => model.genelBilgiSayfa2.ISO14001_K, htmlAttributes: new { @class = "control-label col-md-2" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.genelBilgiSayfa2.ISO14001_K, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.ISO14001_K, "", new { @class = "text-danger" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.genelBilgiSayfa2.ISO14001_Sure, new { htmlAttributes = new { @class = "form-control", @placeholder = "Gün/Ay/Yıl" } })
+                                @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.ISO14001_Sure, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(model => model.genelBilgiSayfa2.OHSAS18001_K, htmlAttributes: new { @class = "control-label col-md-2" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.genelBilgiSayfa2.OHSAS18001_K, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.OHSAS18001_K, "", new { @class = "text-danger" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.genelBilgiSayfa2.OHSAS18001_Sure, new { htmlAttributes = new { @class = "form-control", @placeholder = "Gün/Ay/Yıl" } })
+                                @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.OHSAS18001_Sure, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(model => model.genelBilgiSayfa2.Diger_K, htmlAttributes: new { @class = "control-label col-md-2" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.genelBilgiSayfa2.Diger_K, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.Diger_K, "", new { @class = "text-danger" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.genelBilgiSayfa2.Diger_Sure, new { htmlAttributes = new { @class = "form-control", @placeholder = "Gün/Ay/Yıl" } })
+                                @Html.ValidationMessageFor(model => model.genelBilgiSayfa2.Diger_Sure, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="off panel-title">Referans Listeniz</h3>
+            </div>
+            <div class="panel-body">
+                <fieldset class="col-md-7">
+                    <legend>Yurtiçi</legend>
+                    <table class="table table-hover table-striped">
+                        <tr>
+                            <th></th>
+                            <th>Firma Adı</th>
+                            <th>Ciro</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                @Html.EditorFor(model => model.referanslar[0].FirmaAdi, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.referanslar[0].FirmaAdi, "", new { @class = "text-danger" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.referanslar[0].Ciro, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.referanslar[0].Ciro, "", new { @class = "text-danger" })
+                                <input hidden="hidden" name="referanslar[0].YurtIci" value="true" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                @Html.EditorFor(model => model.referanslar[1].FirmaAdi, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.referanslar[1].FirmaAdi, "", new { @class = "text-danger" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.referanslar[1].Ciro, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.referanslar[1].Ciro, "", new { @class = "text-danger" })
+                                <input hidden="hidden" name="referanslar[1].YurtIci" value="true" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>
+                                @Html.EditorFor(model => model.referanslar[2].FirmaAdi, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.referanslar[2].FirmaAdi, "", new { @class = "text-danger" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.referanslar[2].Ciro, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.referanslar[2].Ciro, "", new { @class = "text-danger" })
+                                <input hidden="hidden" name="referanslar[2].YurtIci" value="true" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <br />
+                <fieldset class="col-md-7">
+                    <legend>Yurtdışı</legend>
+                    <table class="table table-hover table-striped">
+                        <tr>
+                            <th></th>
+                            <th>Firma Adı</th>
+                            <th>Ciro</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                @Html.EditorFor(model => model.referanslar[3].FirmaAdi, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.referanslar[3].FirmaAdi, "", new { @class = "text-danger" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.referanslar[3].Ciro, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.referanslar[3].Ciro, "", new { @class = "text-danger" })
+                                <input hidden="hidden" name="referanslar[3].YurtIci" value="false" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                @Html.EditorFor(model => model.referanslar[4].FirmaAdi, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.referanslar[4].FirmaAdi, "", new { @class = "text-danger" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.referanslar[4].Ciro, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.referanslar[4].Ciro, "", new { @class = "text-danger" })
+                                <input hidden="hidden" name="referanslar[4].YurtIci" value="false" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>
+                                @Html.EditorFor(model => model.referanslar[5].FirmaAdi, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.referanslar[5].FirmaAdi, "", new { @class = "text-danger" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.referanslar[5].Ciro, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.referanslar[5].Ciro, "", new { @class = "text-danger" })
+                                <input hidden="hidden" name="referanslar[5].YurtIci" value="false" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="İleri2" class="btn btn-primary" />
+        </div>
+    </div>
+}
+
+<script>
+    function AjaxBasarili() {
+        if ('@ViewBag.tabSayaci' == 3) {
+            $('#sayfa2 :input').change(function (e) {
+                $('#'+$(e.target).attr('id')).addClass("degisiklikVar");
+                //document.getElementById($(e.target).attr('id')).className += " degisiklikVar ";
+                tabKapat2();
+            });
+
+            // nav
+            $('#tabListesi li a[href="#sayfa3"]').attr('data-toggle', 'tab');
+            $('#tabListesi li:eq(2)').removeAttr("class");
+            $('#tabListesi a[href = "#sayfa3"]').tab('show');
+        }
+        else {
+            tabKapat2();
+        }
+    }
+
+    function AjaxHatali() {
+        tabKapat2();
+        alert("Ajax Hatası4");
+    }
+
+    function tabKapat2() {
+        $('#tabListesi li a[href="#sayfa3"]').removeAttr('data-toggle');
+        $('#tabListesi li:eq(2)').attr("class", "disabled");
+        $('#tabListesi li a[href="#sayfa4"]').removeAttr('data-toggle');
+        $('#tabListesi li:eq(3)').attr("class", "disabled");
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        if ($('input[name="banka1CheckBox"]:checked').val() == null) {
+            document.getElementById("bankaBilgileri_1__BankaKodu").disabled = true;
+            document.getElementById("bankaBilgileri_1__IbanNo").readOnly = true;
+            document.getElementById("bankaBilgileri_1__ParaBirimiKodu").disabled = true;
+        }
+        if ($('input[name="banka2CheckBox"]:checked').val() == null) {
+            document.getElementById("bankaBilgileri_2__BankaKodu").disabled = true;
+            document.getElementById("bankaBilgileri_2__IbanNo").readOnly = true;
+            document.getElementById("bankaBilgileri_2__ParaBirimiKodu").disabled = true;
+        }
+
+        if ($('input[name="genelBilgiSayfa2.KaliteSistemiBelgesi"]:checked').val() == "True") {
+            acKalite();
+        }
+        
+    });
+
+    function bankaSecme(value) {
+        var hangiButon = "banka" + value.charAt(15) + "CheckBox";
+        var seciliMi = document.getElementsByName(hangiButon)[0].checked;
+        if (seciliMi) {
+            document.getElementById(value + "__BankaKodu").disabled = false;
+            document.getElementById(value + "__IbanNo").readOnly = false;
+            document.getElementById(value + "__ParaBirimiKodu").disabled = false;
+        }
+        else {
+            document.getElementById(value + "__BankaKodu").disabled = true;
+            document.getElementById(value + "__IbanNo").readOnly = true;
+            document.getElementById(value + "__ParaBirimiKodu").disabled = true;
+        }
+    }
+
+    function acKalite() {
+        document.getElementById("KaliteBelgeleri").style["display"] = "block";
+    }
+    function kapaKalite() {
+        document.getElementById("KaliteBelgeleri").style["display"] = "none";
+    }
+
+</script>

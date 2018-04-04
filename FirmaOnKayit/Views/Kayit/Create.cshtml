@@ -1,0 +1,191 @@
+﻿@model FirmaOnKayit.Models.Sayfa1Model
+@{
+    ViewBag.Title = "Create";
+}
+
+<style>
+    .degisiklikVar{
+        border-color:red;
+        outline:0;
+        -webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(234, 0, 0, 0.6);
+        box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(234, 0, 0, 0.6);
+    }
+</style>
+
+@Html.ValidationSummary(true)
+
+<!-- Nav tabs -->
+<ul class="nav nav-pills nav-justified" id="tabListesi" role="tablist">
+    <li class="active"><a href="#sayfa1" role="tab" data-toggle="tab">Sayfa 1</a></li>
+    <li class="disabled"><a href="#sayfa2" role="tab">Sayfa 2</a></li>
+    <li class="disabled"><a href="#sayfa3" role="tab">Sayfa 3</a></li>
+    <li class="disabled"><a href="#sayfa4" role="tab">Sayfa 4</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div class="tab-pane active" id="sayfa1">@Html.Action("Sayfa1", Model)</div>
+    <div class="tab-pane" id="sayfa2"></div>
+    <div class="tab-pane" id="sayfa3"></div>
+    <div class="tab-pane" id="sayfa4"></div>
+</div>
+
+<button type="button" id="sonlandir" style="display:none;" class="btn btn-primary" value="Save">Kayıt işlemini sonlandır</button>
+
+<script>
+
+    $('#sonlandir').click(function (event) {
+        var files = document.getElementById("upload1").files;
+        var files2 = document.getElementById("upload2").files;
+        var files3 = document.getElementById("upload3").files;
+
+        if (files.length == 0 || files2.length == 0 || files3.length == 0) {
+            alert("İlk 3 dosya yüklenmedi");
+            return;
+        }
+        if (files.length > 33554433 || files2.length > 33554433 || files3.length > 33554433)
+        {
+            alert("Dosya boyutu 32 MB tan fazla");
+            return;
+        }
+
+        var formData = new FormData(),
+        fields = $("#BirinciForm").serializeArray(),
+            fields2 = $("#IkinciForm").serializeArray(),
+            fields3 = $("#UcuncuForm").serializeArray();
+        
+        // file verisi ekleme
+        formData.append("file1", files[0]);
+        formData.append("file2", files2[0]);
+        formData.append("file3", files3[0]);
+
+        console.log("--------");
+        $.each(fields, function (i, field) {
+            formData.append(field.name, field.value);
+            console.log(field.name);
+        });
+
+        console.log("--------");
+        $.each(fields2, function (i, field) {
+            formData.append(field.name, field.value);
+            console.log(field.name);
+        });
+
+        console.log("--------");
+        $.each(fields3, function (i, field) {
+            formData.append(field.name, field.value);
+            console.log(field.name);
+        });
+        
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Create")',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                alert(response);
+                if (response == "Index")
+                {
+                    alert("Kayıt başarılı yönlendiriliyorsunuz...");
+                    window.location.href = '@Url.Action("Index")';
+                }
+                else
+                    alert("Doldurulmayan alanlar var");
+                //$("#son").html("");
+                //$("#son").html(response);
+               
+            },
+            error: function (req, status, error) {
+                alert("Ajax Ha");
+            }
+        });
+    });
+
+</script>
+
+<script>
+    $(document).ready(function () {
+
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("Sayfa2")',
+            data: "",
+            success: function (result) {
+                $("#sayfa2").html(result);
+            },
+            error: function (req, status, error) {
+                alert("Ajax Hatası2");
+            }
+        });
+        
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("Sayfa3")',
+            data: "",
+            success: function (result) {
+                $("#sayfa3").html(result);
+            },
+            error: function (req, status, error) {
+                alert("Ajax Hatası3");
+            }
+        });
+
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("Sayfa4")',
+            data: "",
+            success: function (result) {
+                $("#sayfa4").html(result);
+            },
+            error: function (req, status, error) {
+                alert("Ajax Hatası41");
+            }
+        });
+    });
+</script>
+
+<script>
+    function radioClick(valu, nam) {
+        var kontrol = nam.substring(nam, nam.length - 2);
+        if (valu == "0") {
+            document.getElementById(nam + "_Id").style.display = "none";
+            document.getElementById(kontrol + "_Telefon1").value = "";
+        }
+        else {
+            document.getElementById(nam + "_Id").style.display = "block";
+            document.getElementById(kontrol + "_Telefon1").value = "";
+        }
+
+        document.getElementById(kontrol + "_yazismaAdresi").disabled = (valu == "0") ? true : false;
+    }
+
+function sirketTuru(valu) {
+    document.getElementById("vergiNo_Group").style["display"] = valu != 3 ? "block" : "none";
+    document.getElementById("tcNo_Group").style["display"] = (valu == 3 || valu == 5) ? "block" : "none";
+
+    if (!(valu == 3 || valu == 5)) {
+        document.getElementById("firmaGenelBilgi_TCNo").value = "";
+    }
+    if (valu == 3 || valu == 5) {
+        document.getElementById("firmaGenelBilgi_VergiNo").value = "";
+    }
+}
+
+function ortakRadio(valu) {
+    document.getElementById("firmaGenelBilgi_OrtakIliskisiId").style["display"] = (valu == "True") ? "inline" : "none";
+}
+
+function sehirDegistir(value, name) {
+    document.getElementById(name + "_Telefon1_A").value = value;
+    document.getElementById(name + "_Telefon1_B").value = value;
+    if (name == "merkezAdresi")
+        document.getElementById(name + "_Telefon1_C").value = value;
+    document.getElementById(name + "_Faks1_A").value = value;
+    if (name == "merkezAdresi") {
+        document.getElementById(name + "_Faks1_B").value = value;
+        document.getElementById(name + "_Faks1_C").value = value;
+    }
+}
+</script>

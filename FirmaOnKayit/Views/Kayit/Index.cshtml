@@ -1,0 +1,105 @@
+﻿@model IEnumerable<FirmaOnKayit.Models.FirmaGenelBilgi>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirmaAdi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SirketTuru)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KurulusYili)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IliskiliTaraf)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrtakIliskisi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sermaye)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WebAdresi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VergiDairesi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VergiNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TCNo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirmaAdi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SirketTuru)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KurulusYili)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IliskiliTaraf)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrtakIliskisi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sermaye)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WebAdresi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VergiDairesi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VergiNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TCNo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

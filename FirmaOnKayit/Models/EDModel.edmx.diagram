@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="aeaade2024bb4c67a49614985384f14a" Name="Diagram1" ZoomLevel="67">
+        <EntityTypeShape EntityType="Model.F1_FabrikaAdresi" Width="1.5" PointX="5.25" PointY="21.625" />
+        <EntityTypeShape EntityType="Model.F1_MerkezAdresi" Width="1.5" PointX="5.25" PointY="25.75" />
+        <EntityTypeShape EntityType="Model.F2_Referanslar" Width="1.5" PointX="5.25" PointY="30.375" />
+        <EntityTypeShape EntityType="Model.F1_SirketOrtaklari" Width="1.5" PointX="5.25" PointY="34.25" />
+        <EntityTypeShape EntityType="Model.F2_FirmaGenelBilgi2" Width="1.5" PointX="5.25" PointY="6.875" />
+        <EntityTypeShape EntityType="Model.FirmaGenelBilgi" Width="1.5" PointX="3" PointY="7" />
+        <AssociationConnector Association="Model.FK_FabrikaAdresi_FirmaGenelBilgi" />
+        <AssociationConnector Association="Model.FK_MerkezAdresi_FirmaGenelBilgi" />
+        <AssociationConnector Association="Model.FK_SirketOrtaklari_FirmaGenelBilgi" />
+        <AssociationConnector Association="Model.FK_FirmaGenelBilgi2_FirmaGenelBilgi" />
+        <AssociationConnector Association="Model.FK_Referanslar_FirmaGenelBilgi" />
+        <EntityTypeShape EntityType="Model.F1_SubeAdresi" Width="1.5" PointX="5.25" PointY="40.125" />
+        <AssociationConnector Association="Model.FK_SubeAdresi_FirmaGenelBilgi" />
+        <EntityTypeShape EntityType="Model.F2_BankaBilgileri" Width="1.5" PointX="5.25" PointY="13.875" />
+        <AssociationConnector Association="Model.FK_BankaBilgileri_FirmaGenelBilgi" />
+        <EntityTypeShape EntityType="Model.F3_FirmaGenelBilgi3" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="Model.F1_Personeller" Width="1.5" PointX="0.75" PointY="9.125" />
+        <AssociationConnector Association="Model.FK_FirmaGenelBilgi_Personeller1" />
+        <EntityTypeShape EntityType="Model.BankalarView" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.ParaBirimleriView" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="Model.PersonellerView" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.SektorView" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.F4_BelgeVeDokuman" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.F3_SirketCalisanlari" Width="1.5" PointX="7.375" PointY="7.75" />
+        <EntityTypeShape EntityType="Model.HariciMalGrubuView" Width="1.5" PointX="3.375" PointY="3.75" />
+        <EntityTypeShape EntityType="Model.F3_UrunPortfoyu" Width="1.5" PointX="5.25" PointY="44.875" />
+        <AssociationConnector Association="Model.FK_F3_UrunPortfoyu_FirmaGenelBilgi" />
+        <EntityTypeShape EntityType="Model.F3_HariciMal_Tanimlari" Width="1.5" PointX="9.375" PointY="4.75" />
+        <EntityTypeShape EntityType="Model.F3_HariciMalGrubu" Width="1.5" PointX="9.375" PointY="7.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

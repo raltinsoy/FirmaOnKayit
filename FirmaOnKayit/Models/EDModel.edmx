@@ -1,0 +1,1167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="F1_FabrikaAdresi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirmaID" Type="int" Nullable="false" />
+          <Property Name="Sehir" Type="smallint" Nullable="false" />
+          <Property Name="PostaKodu" Type="nvarchar" MaxLength="10" />
+          <Property Name="AcikAdres" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="Semt" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="PostaKutusu" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefon1" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Faks1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mobil" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="F1_MerkezAdresi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirmaID" Type="int" Nullable="false" />
+          <Property Name="Sehir" Type="smallint" Nullable="false" />
+          <Property Name="PostaKodu" Type="nvarchar" MaxLength="10" />
+          <Property Name="AcikAdres" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="Semt" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="PostaKutusu" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefon1" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefon3" Type="nvarchar" MaxLength="50" />
+          <Property Name="Faks1" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Faks2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Faks3" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mobil" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="F1_Personeller">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsimSoyisim" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="F1_SirketOrtaklari">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Soyadi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ortaklik" Type="float" />
+          <Property Name="FirmaID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="F1_SubeAdresi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirmaID" Type="int" Nullable="false" />
+          <Property Name="Sehir" Type="smallint" Nullable="false" />
+          <Property Name="PostaKodu" Type="nvarchar" MaxLength="10" />
+          <Property Name="AcikAdres" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="Semt" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="PostaKutusu" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefon1" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Faks1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mobil" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="F2_BankaBilgileri">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirmaID" Type="int" Nullable="false" />
+          <Property Name="BankaKodu" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="IbanNo" Type="nvarchar" MaxLength="26" Nullable="false" />
+          <Property Name="ParaBirimiKodu" Type="nvarchar" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="F2_FirmaGenelBilgi2">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirmaID" Type="int" Nullable="false" />
+          <Property Name="SektorID" Type="int" Nullable="false" />
+          <Property Name="FirmaFaliyetSekli" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="SirketCirosu" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="SirketCiroYili" Type="int" Nullable="false" />
+          <Property Name="ToplamCalisanSayisi" Type="int" />
+          <Property Name="IdariCalisan" Type="int" />
+          <Property Name="Uretim" Type="int" />
+          <Property Name="OnYilFazlaPers" Type="int" />
+          <Property Name="Satis" Type="int" />
+          <Property Name="Kalite" Type="int" />
+          <Property Name="BagimsizDenetleme" Type="bit" Nullable="false" />
+          <Property Name="TedarikciKaliteYonetim" Type="bit" Nullable="false" />
+          <Property Name="KaliteSistemiBelgesi" Type="bit" Nullable="false" />
+          <Property Name="ISO9001_K" Type="nvarchar" MaxLength="150" />
+          <Property Name="ISO9001_Sure" Type="datetime" />
+          <Property Name="ISO14001_K" Type="nvarchar" MaxLength="150" />
+          <Property Name="ISO14001_Sure" Type="datetime" />
+          <Property Name="OHSAS18001_K" Type="nvarchar" MaxLength="150" />
+          <Property Name="OHSAS18001_Sure" Type="datetime" />
+          <Property Name="Diger_K" Type="nvarchar" MaxLength="150" />
+          <Property Name="Diger_Sure" Type="datetime" />
+        </EntityType>
+        <EntityType Name="F2_Referanslar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirmaID" Type="int" Nullable="false" />
+          <Property Name="FirmaAdi" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Ciro" Type="nvarchar" MaxLength="9" />
+          <Property Name="YurtIci" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="F3_FirmaGenelBilgi3">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirmaID" Type="int" Nullable="false" />
+          <Property Name="FormDolAd" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="FormDolSoyad" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="FormDolUnvan" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="FormDolDepart" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="FormDolTel" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FormDolFaks" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="F3_HariciMal_Tanimlari">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HariciMalGrupID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Tanim" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Kod" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="F3_HariciMalGrubu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="F3_SirketCalisanlari">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirmaID" Type="int" Nullable="false" />
+          <Property Name="Ad" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Soyad" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="CepTel" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Dahili" Type="nvarchar" MaxLength="4" />
+          <Property Name="CalisanTipi" Type="nvarchar" MaxLength="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="F3_UrunPortfoyu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirmaID" Type="int" Nullable="false" />
+          <Property Name="HariciMalTanimID" Type="int" Nullable="false" />
+          <Property Name="FaaliyetSekli" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="F4_BelgeVeDokuman">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirmaID" Type="int" Nullable="false" />
+          <Property Name="SicilTasdik" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="SicilGazet" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="İmzaSirkul" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="TSE" Type="nvarchar" MaxLength="300" />
+          <Property Name="ISO" Type="nvarchar" MaxLength="300" />
+          <Property Name="HizmetYet" Type="nvarchar" MaxLength="300" />
+          <Property Name="Yetki" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="FirmaGenelBilgi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirmaAdi" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="SirketTuru" Type="tinyint" Nullable="false" />
+          <Property Name="KurulusYili" Type="int" Nullable="false" />
+          <Property Name="IliskiliTaraf" Type="bit" Nullable="false" />
+          <Property Name="OrtakIliskisi" Type="bit" Nullable="false" />
+          <Property Name="Sermaye" Type="int" />
+          <Property Name="WebAdresi" Type="nvarchar" MaxLength="250" />
+          <Property Name="Email1" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Email2" Type="nvarchar" MaxLength="250" />
+          <Property Name="Email3" Type="nvarchar" MaxLength="250" />
+          <Property Name="VergiDairesi" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="VergiNo" Type="nvarchar" MaxLength="10" />
+          <Property Name="TCNo" Type="nvarchar" MaxLength="11" />
+          <Property Name="OrtakIliskisiId" Type="int" />
+          <Property Name="yazismaAdresi" Type="tinyint" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FirmaKayitDB.dbo.BankalarView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BankalarView">
+          <Key>
+            <PropertyRef Name="BankaKodu" />
+            <PropertyRef Name="BankaAdi" />
+          </Key>
+          <Property Name="BankaKodu" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="BankaAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FirmaKayitDB.dbo.HariciMalGrubuView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="HariciMalGrubuView">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Text" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FirmaKayitDB.dbo.ParaBirimleriView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ParaBirimleriView">
+          <Key>
+            <PropertyRef Name="ParaBirimiKodu" />
+            <PropertyRef Name="ParaBirimiAdi" />
+          </Key>
+          <Property Name="ParaBirimiKodu" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="ParaBirimiAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FirmaKayitDB.dbo.PersonellerView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PersonellerView">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="IsimSoyisim" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsimSoyisim" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FirmaKayitDB.dbo.SektorView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SektorView">
+          <Key>
+            <PropertyRef Name="SektorID" />
+            <PropertyRef Name="SektorAdi" />
+          </Key>
+          <Property Name="SektorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SektorAdi" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BankaBilgileri_FirmaGenelBilgi">
+          <End Role="FirmaGenelBilgi" Type="Self.FirmaGenelBilgi" Multiplicity="1" />
+          <End Role="F2_BankaBilgileri" Type="Self.F2_BankaBilgileri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FirmaGenelBilgi">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="F2_BankaBilgileri">
+              <PropertyRef Name="FirmaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_F3_UrunPortfoyu_FirmaGenelBilgi">
+          <End Role="FirmaGenelBilgi" Type="Self.FirmaGenelBilgi" Multiplicity="1" />
+          <End Role="F3_UrunPortfoyu" Type="Self.F3_UrunPortfoyu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FirmaGenelBilgi">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="F3_UrunPortfoyu">
+              <PropertyRef Name="FirmaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FabrikaAdresi_FirmaGenelBilgi">
+          <End Role="FirmaGenelBilgi" Type="Self.FirmaGenelBilgi" Multiplicity="1" />
+          <End Role="F1_FabrikaAdresi" Type="Self.F1_FabrikaAdresi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FirmaGenelBilgi">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="F1_FabrikaAdresi">
+              <PropertyRef Name="FirmaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FirmaGenelBilgi_Personeller1">
+          <End Role="F1_Personeller" Type="Self.F1_Personeller" Multiplicity="0..1" />
+          <End Role="FirmaGenelBilgi" Type="Self.FirmaGenelBilgi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="F1_Personeller">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FirmaGenelBilgi">
+              <PropertyRef Name="OrtakIliskisiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FirmaGenelBilgi2_FirmaGenelBilgi">
+          <End Role="FirmaGenelBilgi" Type="Self.FirmaGenelBilgi" Multiplicity="1" />
+          <End Role="F2_FirmaGenelBilgi2" Type="Self.F2_FirmaGenelBilgi2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FirmaGenelBilgi">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="F2_FirmaGenelBilgi2">
+              <PropertyRef Name="FirmaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MerkezAdresi_FirmaGenelBilgi">
+          <End Role="FirmaGenelBilgi" Type="Self.FirmaGenelBilgi" Multiplicity="1" />
+          <End Role="F1_MerkezAdresi" Type="Self.F1_MerkezAdresi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FirmaGenelBilgi">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="F1_MerkezAdresi">
+              <PropertyRef Name="FirmaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Referanslar_FirmaGenelBilgi">
+          <End Role="FirmaGenelBilgi" Type="Self.FirmaGenelBilgi" Multiplicity="1" />
+          <End Role="F2_Referanslar" Type="Self.F2_Referanslar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FirmaGenelBilgi">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="F2_Referanslar">
+              <PropertyRef Name="FirmaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SirketOrtaklari_FirmaGenelBilgi">
+          <End Role="FirmaGenelBilgi" Type="Self.FirmaGenelBilgi" Multiplicity="1" />
+          <End Role="F1_SirketOrtaklari" Type="Self.F1_SirketOrtaklari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FirmaGenelBilgi">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="F1_SirketOrtaklari">
+              <PropertyRef Name="FirmaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubeAdresi_FirmaGenelBilgi">
+          <End Role="FirmaGenelBilgi" Type="Self.FirmaGenelBilgi" Multiplicity="1" />
+          <End Role="F1_SubeAdresi" Type="Self.F1_SubeAdresi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FirmaGenelBilgi">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="F1_SubeAdresi">
+              <PropertyRef Name="FirmaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="F1_FabrikaAdresi" EntityType="Self.F1_FabrikaAdresi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="F1_MerkezAdresi" EntityType="Self.F1_MerkezAdresi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="F1_Personeller" EntityType="Self.F1_Personeller" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="F1_SirketOrtaklari" EntityType="Self.F1_SirketOrtaklari" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="F1_SubeAdresi" EntityType="Self.F1_SubeAdresi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="F2_BankaBilgileri" EntityType="Self.F2_BankaBilgileri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="F2_FirmaGenelBilgi2" EntityType="Self.F2_FirmaGenelBilgi2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="F2_Referanslar" EntityType="Self.F2_Referanslar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="F3_FirmaGenelBilgi3" EntityType="Self.F3_FirmaGenelBilgi3" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="F3_HariciMal_Tanimlari" EntityType="Self.F3_HariciMal_Tanimlari" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="F3_HariciMalGrubu" EntityType="Self.F3_HariciMalGrubu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="F3_SirketCalisanlari" EntityType="Self.F3_SirketCalisanlari" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="F3_UrunPortfoyu" EntityType="Self.F3_UrunPortfoyu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="F4_BelgeVeDokuman" EntityType="Self.F4_BelgeVeDokuman" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FirmaGenelBilgi" EntityType="Self.FirmaGenelBilgi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BankalarView" EntityType="Self.BankalarView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BankalarView].[BankaKodu] AS [BankaKodu], 
+    [BankalarView].[BankaAdi] AS [BankaAdi]
+    FROM [dbo].[BankalarView] AS [BankalarView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="HariciMalGrubuView" EntityType="Self.HariciMalGrubuView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [HariciMalGrubuView].[ID] AS [ID], 
+    [HariciMalGrubuView].[Text] AS [Text]
+    FROM [dbo].[HariciMalGrubuView] AS [HariciMalGrubuView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ParaBirimleriView" EntityType="Self.ParaBirimleriView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ParaBirimleriView].[ParaBirimiKodu] AS [ParaBirimiKodu], 
+    [ParaBirimleriView].[ParaBirimiAdi] AS [ParaBirimiAdi]
+    FROM [dbo].[ParaBirimleriView] AS [ParaBirimleriView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PersonellerView" EntityType="Self.PersonellerView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PersonellerView].[ID] AS [ID], 
+    [PersonellerView].[IsimSoyisim] AS [IsimSoyisim]
+    FROM [dbo].[PersonellerView] AS [PersonellerView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SektorView" EntityType="Self.SektorView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SektorView].[SektorID] AS [SektorID], 
+    [SektorView].[SektorAdi] AS [SektorAdi]
+    FROM [dbo].[SektorView] AS [SektorView]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_BankaBilgileri_FirmaGenelBilgi" Association="Self.FK_BankaBilgileri_FirmaGenelBilgi">
+            <End Role="FirmaGenelBilgi" EntitySet="FirmaGenelBilgi" />
+            <End Role="F2_BankaBilgileri" EntitySet="F2_BankaBilgileri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_F3_UrunPortfoyu_FirmaGenelBilgi" Association="Self.FK_F3_UrunPortfoyu_FirmaGenelBilgi">
+            <End Role="FirmaGenelBilgi" EntitySet="FirmaGenelBilgi" />
+            <End Role="F3_UrunPortfoyu" EntitySet="F3_UrunPortfoyu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FabrikaAdresi_FirmaGenelBilgi" Association="Self.FK_FabrikaAdresi_FirmaGenelBilgi">
+            <End Role="FirmaGenelBilgi" EntitySet="FirmaGenelBilgi" />
+            <End Role="F1_FabrikaAdresi" EntitySet="F1_FabrikaAdresi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FirmaGenelBilgi_Personeller1" Association="Self.FK_FirmaGenelBilgi_Personeller1">
+            <End Role="F1_Personeller" EntitySet="F1_Personeller" />
+            <End Role="FirmaGenelBilgi" EntitySet="FirmaGenelBilgi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FirmaGenelBilgi2_FirmaGenelBilgi" Association="Self.FK_FirmaGenelBilgi2_FirmaGenelBilgi">
+            <End Role="FirmaGenelBilgi" EntitySet="FirmaGenelBilgi" />
+            <End Role="F2_FirmaGenelBilgi2" EntitySet="F2_FirmaGenelBilgi2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MerkezAdresi_FirmaGenelBilgi" Association="Self.FK_MerkezAdresi_FirmaGenelBilgi">
+            <End Role="FirmaGenelBilgi" EntitySet="FirmaGenelBilgi" />
+            <End Role="F1_MerkezAdresi" EntitySet="F1_MerkezAdresi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Referanslar_FirmaGenelBilgi" Association="Self.FK_Referanslar_FirmaGenelBilgi">
+            <End Role="FirmaGenelBilgi" EntitySet="FirmaGenelBilgi" />
+            <End Role="F2_Referanslar" EntitySet="F2_Referanslar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SirketOrtaklari_FirmaGenelBilgi" Association="Self.FK_SirketOrtaklari_FirmaGenelBilgi">
+            <End Role="FirmaGenelBilgi" EntitySet="FirmaGenelBilgi" />
+            <End Role="F1_SirketOrtaklari" EntitySet="F1_SirketOrtaklari" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubeAdresi_FirmaGenelBilgi" Association="Self.FK_SubeAdresi_FirmaGenelBilgi">
+            <End Role="FirmaGenelBilgi" EntitySet="FirmaGenelBilgi" />
+            <End Role="F1_SubeAdresi" EntitySet="F1_SubeAdresi" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FirmaKayitDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="F1_FabrikaAdresi" EntityType="Model.F1_FabrikaAdresi" />
+          <EntitySet Name="F1_MerkezAdresi" EntityType="Model.F1_MerkezAdresi" />
+          <EntitySet Name="F2_Referanslar" EntityType="Model.F2_Referanslar" />
+          <EntitySet Name="F1_SirketOrtaklari" EntityType="Model.F1_SirketOrtaklari" />
+          <EntitySet Name="F2_FirmaGenelBilgi2" EntityType="Model.F2_FirmaGenelBilgi2" />
+          <EntitySet Name="FirmaGenelBilgi" EntityType="Model.FirmaGenelBilgi" />
+          <AssociationSet Name="FK_FabrikaAdresi_FirmaGenelBilgi" Association="Model.FK_FabrikaAdresi_FirmaGenelBilgi">
+            <End Role="FirmaGenelBilgi" EntitySet="FirmaGenelBilgi" />
+            <End Role="F1_FabrikaAdresi" EntitySet="F1_FabrikaAdresi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MerkezAdresi_FirmaGenelBilgi" Association="Model.FK_MerkezAdresi_FirmaGenelBilgi">
+            <End Role="FirmaGenelBilgi" EntitySet="FirmaGenelBilgi" />
+            <End Role="F1_MerkezAdresi" EntitySet="F1_MerkezAdresi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SirketOrtaklari_FirmaGenelBilgi" Association="Model.FK_SirketOrtaklari_FirmaGenelBilgi">
+            <End Role="FirmaGenelBilgi" EntitySet="FirmaGenelBilgi" />
+            <End Role="F1_SirketOrtaklari" EntitySet="F1_SirketOrtaklari" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FirmaGenelBilgi2_FirmaGenelBilgi" Association="Model.FK_FirmaGenelBilgi2_FirmaGenelBilgi">
+            <End Role="FirmaGenelBilgi" EntitySet="FirmaGenelBilgi" />
+            <End Role="F2_FirmaGenelBilgi2" EntitySet="F2_FirmaGenelBilgi2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Referanslar_FirmaGenelBilgi" Association="Model.FK_Referanslar_FirmaGenelBilgi">
+            <End Role="FirmaGenelBilgi" EntitySet="FirmaGenelBilgi" />
+            <End Role="F2_Referanslar" EntitySet="F2_Referanslar" />
+          </AssociationSet>
+          <EntitySet Name="F1_SubeAdresi" EntityType="Model.F1_SubeAdresi" />
+          <AssociationSet Name="FK_SubeAdresi_FirmaGenelBilgi" Association="Model.FK_SubeAdresi_FirmaGenelBilgi">
+            <End Role="FirmaGenelBilgi" EntitySet="FirmaGenelBilgi" />
+            <End Role="F1_SubeAdresi" EntitySet="F1_SubeAdresi" />
+          </AssociationSet>
+          <EntitySet Name="F2_BankaBilgileri" EntityType="Model.F2_BankaBilgileri" />
+          <AssociationSet Name="FK_BankaBilgileri_FirmaGenelBilgi" Association="Model.FK_BankaBilgileri_FirmaGenelBilgi">
+            <End Role="FirmaGenelBilgi" EntitySet="FirmaGenelBilgi" />
+            <End Role="F2_BankaBilgileri" EntitySet="F2_BankaBilgileri" />
+          </AssociationSet>
+          <EntitySet Name="F3_FirmaGenelBilgi3" EntityType="Model.F3_FirmaGenelBilgi3" />
+          <EntitySet Name="F1_Personeller" EntityType="Model.F1_Personeller" />
+          <AssociationSet Name="FK_FirmaGenelBilgi_Personeller1" Association="Model.FK_FirmaGenelBilgi_Personeller1">
+            <End Role="F1_Personeller" EntitySet="F1_Personeller" />
+            <End Role="FirmaGenelBilgi" EntitySet="FirmaGenelBilgi" />
+          </AssociationSet>
+          <EntitySet Name="BankalarView" EntityType="Model.BankalarView" />
+          <EntitySet Name="ParaBirimleriView" EntityType="Model.ParaBirimleriView" />
+          <EntitySet Name="PersonellerView" EntityType="Model.PersonellerView" />
+          <EntitySet Name="SektorView" EntityType="Model.SektorView" />
+          <EntitySet Name="F4_BelgeVeDokuman" EntityType="Model.F4_BelgeVeDokuman" />
+          <EntitySet Name="F3_SirketCalisanlari" EntityType="Model.F3_SirketCalisanlari" />
+          <EntitySet Name="HariciMalGrubuView" EntityType="Model.HariciMalGrubuView" />
+          <EntitySet Name="F3_UrunPortfoyu" EntityType="Model.F3_UrunPortfoyu" />
+          <AssociationSet Name="FK_F3_UrunPortfoyu_FirmaGenelBilgi" Association="Model.FK_F3_UrunPortfoyu_FirmaGenelBilgi">
+            <End Role="FirmaGenelBilgi" EntitySet="FirmaGenelBilgi" />
+            <End Role="F3_UrunPortfoyu" EntitySet="F3_UrunPortfoyu" />
+          </AssociationSet>
+          <EntitySet Name="F3_HariciMal_Tanimlari" EntityType="Model.F3_HariciMal_Tanimlari" />
+          <EntitySet Name="F3_HariciMalGrubu" EntityType="Model.F3_HariciMalGrubu" />
+          </EntityContainer>
+        <EntityType Name="F1_FabrikaAdresi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirmaID" Type="Int32" Nullable="false" />
+          <Property Name="Sehir" Type="Int16" Nullable="false" />
+          <Property Name="PostaKodu" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="AcikAdres" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="Semt" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="PostaKutusu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Faks1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mobil" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FirmaGenelBilgi" Relationship="Model.FK_FabrikaAdresi_FirmaGenelBilgi" FromRole="F1_FabrikaAdresi" ToRole="FirmaGenelBilgi" />
+        </EntityType>
+        <EntityType Name="F1_MerkezAdresi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirmaID" Type="Int32" Nullable="false" />
+          <Property Name="Sehir" Type="Int16" Nullable="false" />
+          <Property Name="PostaKodu" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="AcikAdres" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="Semt" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="PostaKutusu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Faks1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Faks2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Faks3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mobil" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FirmaGenelBilgi" Relationship="Model.FK_MerkezAdresi_FirmaGenelBilgi" FromRole="F1_MerkezAdresi" ToRole="FirmaGenelBilgi" />
+        </EntityType>
+        <EntityType Name="F2_Referanslar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirmaID" Type="Int32" Nullable="false" />
+          <Property Name="FirmaAdi" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Ciro" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="YurtIci" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="FirmaGenelBilgi" Relationship="Model.FK_Referanslar_FirmaGenelBilgi" FromRole="F2_Referanslar" ToRole="FirmaGenelBilgi" />
+        </EntityType>
+        <EntityType Name="F1_SirketOrtaklari">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Soyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ortaklik" Type="Double" />
+          <Property Name="FirmaID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FirmaGenelBilgi" Relationship="Model.FK_SirketOrtaklari_FirmaGenelBilgi" FromRole="F1_SirketOrtaklari" ToRole="FirmaGenelBilgi" />
+        </EntityType>
+        <EntityType Name="F2_FirmaGenelBilgi2">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirmaID" Type="Int32" Nullable="false" />
+          <Property Name="SektorID" Type="Int32" Nullable="false" />
+          <Property Name="FirmaFaliyetSekli" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="SirketCirosu" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="SirketCiroYili" Type="Int32" Nullable="false" />
+          <Property Name="ToplamCalisanSayisi" Type="Int32" />
+          <Property Name="IdariCalisan" Type="Int32" />
+          <Property Name="Uretim" Type="Int32" />
+          <Property Name="OnYilFazlaPers" Type="Int32" />
+          <Property Name="Satis" Type="Int32" />
+          <Property Name="Kalite" Type="Int32" />
+          <Property Name="BagimsizDenetleme" Type="Boolean" Nullable="false" />
+          <Property Name="TedarikciKaliteYonetim" Type="Boolean" Nullable="false" />
+          <Property Name="KaliteSistemiBelgesi" Type="Boolean" Nullable="false" />
+          <Property Name="ISO9001_K" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ISO9001_Sure" Type="DateTime" Precision="3" />
+          <Property Name="ISO14001_K" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ISO14001_Sure" Type="DateTime" Precision="3" />
+          <Property Name="OHSAS18001_K" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="OHSAS18001_Sure" Type="DateTime" Precision="3" />
+          <Property Name="Diger_K" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Diger_Sure" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="FirmaGenelBilgi" Relationship="Model.FK_FirmaGenelBilgi2_FirmaGenelBilgi" FromRole="F2_FirmaGenelBilgi2" ToRole="FirmaGenelBilgi" />
+        </EntityType>
+        <EntityType Name="FirmaGenelBilgi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirmaAdi" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="SirketTuru" Type="Byte" Nullable="false" />
+          <Property Name="KurulusYili" Type="Int32" Nullable="false" />
+          <Property Name="IliskiliTaraf" Type="Boolean" Nullable="false" />
+          <Property Name="OrtakIliskisi" Type="Boolean" Nullable="false" />
+          <Property Name="Sermaye" Type="Int32" />
+          <Property Name="WebAdresi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Email1" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Email2" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Email3" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="VergiDairesi" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="VergiNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="TCNo" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="OrtakIliskisiId" Type="Int32" />
+          <Property Name="yazismaAdresi" Type="Byte" />
+          <NavigationProperty Name="F1_FabrikaAdresi" Relationship="Model.FK_FabrikaAdresi_FirmaGenelBilgi" FromRole="FirmaGenelBilgi" ToRole="F1_FabrikaAdresi" />
+          <NavigationProperty Name="F1_MerkezAdresi" Relationship="Model.FK_MerkezAdresi_FirmaGenelBilgi" FromRole="FirmaGenelBilgi" ToRole="F1_MerkezAdresi" />
+          <NavigationProperty Name="F1_SirketOrtaklari" Relationship="Model.FK_SirketOrtaklari_FirmaGenelBilgi" FromRole="FirmaGenelBilgi" ToRole="F1_SirketOrtaklari" />
+          <NavigationProperty Name="F2_FirmaGenelBilgi2" Relationship="Model.FK_FirmaGenelBilgi2_FirmaGenelBilgi" FromRole="FirmaGenelBilgi" ToRole="F2_FirmaGenelBilgi2" />
+          <NavigationProperty Name="F2_Referanslar" Relationship="Model.FK_Referanslar_FirmaGenelBilgi" FromRole="FirmaGenelBilgi" ToRole="F2_Referanslar" />
+          <NavigationProperty Name="F1_SubeAdresi" Relationship="Model.FK_SubeAdresi_FirmaGenelBilgi" FromRole="FirmaGenelBilgi" ToRole="F1_SubeAdresi" />
+          <NavigationProperty Name="F2_BankaBilgileri" Relationship="Model.FK_BankaBilgileri_FirmaGenelBilgi" FromRole="FirmaGenelBilgi" ToRole="F2_BankaBilgileri" />
+          <NavigationProperty Name="F1_Personeller" Relationship="Model.FK_FirmaGenelBilgi_Personeller1" FromRole="FirmaGenelBilgi" ToRole="F1_Personeller" />
+          <NavigationProperty Name="F3_UrunPortfoyu" Relationship="Model.FK_F3_UrunPortfoyu_FirmaGenelBilgi" FromRole="FirmaGenelBilgi" ToRole="F3_UrunPortfoyu" />
+        </EntityType>
+        <Association Name="FK_FabrikaAdresi_FirmaGenelBilgi">
+          <End Type="Model.FirmaGenelBilgi" Role="FirmaGenelBilgi" Multiplicity="1" />
+          <End Type="Model.F1_FabrikaAdresi" Role="F1_FabrikaAdresi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FirmaGenelBilgi">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="F1_FabrikaAdresi">
+              <PropertyRef Name="FirmaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MerkezAdresi_FirmaGenelBilgi">
+          <End Type="Model.FirmaGenelBilgi" Role="FirmaGenelBilgi" Multiplicity="1" />
+          <End Type="Model.F1_MerkezAdresi" Role="F1_MerkezAdresi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FirmaGenelBilgi">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="F1_MerkezAdresi">
+              <PropertyRef Name="FirmaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SirketOrtaklari_FirmaGenelBilgi">
+          <End Type="Model.FirmaGenelBilgi" Role="FirmaGenelBilgi" Multiplicity="1" />
+          <End Type="Model.F1_SirketOrtaklari" Role="F1_SirketOrtaklari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FirmaGenelBilgi">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="F1_SirketOrtaklari">
+              <PropertyRef Name="FirmaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FirmaGenelBilgi2_FirmaGenelBilgi">
+          <End Type="Model.FirmaGenelBilgi" Role="FirmaGenelBilgi" Multiplicity="1" />
+          <End Type="Model.F2_FirmaGenelBilgi2" Role="F2_FirmaGenelBilgi2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FirmaGenelBilgi">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="F2_FirmaGenelBilgi2">
+              <PropertyRef Name="FirmaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Referanslar_FirmaGenelBilgi">
+          <End Type="Model.FirmaGenelBilgi" Role="FirmaGenelBilgi" Multiplicity="1" />
+          <End Type="Model.F2_Referanslar" Role="F2_Referanslar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FirmaGenelBilgi">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="F2_Referanslar">
+              <PropertyRef Name="FirmaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="F1_SubeAdresi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirmaID" Type="Int32" Nullable="false" />
+          <Property Name="Sehir" Type="Int16" Nullable="false" />
+          <Property Name="PostaKodu" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="AcikAdres" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="Semt" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="PostaKutusu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Faks1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mobil" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FirmaGenelBilgi" Relationship="Model.FK_SubeAdresi_FirmaGenelBilgi" FromRole="F1_SubeAdresi" ToRole="FirmaGenelBilgi" />
+        </EntityType>
+        <Association Name="FK_SubeAdresi_FirmaGenelBilgi">
+          <End Type="Model.FirmaGenelBilgi" Role="FirmaGenelBilgi" Multiplicity="1" />
+          <End Type="Model.F1_SubeAdresi" Role="F1_SubeAdresi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FirmaGenelBilgi">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="F1_SubeAdresi">
+              <PropertyRef Name="FirmaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="F2_BankaBilgileri">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirmaID" Type="Int32" Nullable="false" />
+          <Property Name="BankaKodu" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="IbanNo" Type="String" Nullable="false" MaxLength="26" FixedLength="false" Unicode="true" />
+          <Property Name="ParaBirimiKodu" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FirmaGenelBilgi" Relationship="Model.FK_BankaBilgileri_FirmaGenelBilgi" FromRole="F2_BankaBilgileri" ToRole="FirmaGenelBilgi" />
+        </EntityType>
+        <Association Name="FK_BankaBilgileri_FirmaGenelBilgi">
+          <End Type="Model.FirmaGenelBilgi" Role="FirmaGenelBilgi" Multiplicity="1" />
+          <End Type="Model.F2_BankaBilgileri" Role="F2_BankaBilgileri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FirmaGenelBilgi">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="F2_BankaBilgileri">
+              <PropertyRef Name="FirmaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="F3_FirmaGenelBilgi3">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirmaID" Type="Int32" Nullable="false" />
+          <Property Name="FormDolAd" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="FormDolSoyad" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="FormDolUnvan" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="FormDolDepart" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="FormDolTel" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FormDolFaks" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="F1_Personeller">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsimSoyisim" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FirmaGenelBilgi" Relationship="Model.FK_FirmaGenelBilgi_Personeller1" FromRole="F1_Personeller" ToRole="FirmaGenelBilgi" />
+        </EntityType>
+        <Association Name="FK_FirmaGenelBilgi_Personeller1">
+          <End Type="Model.F1_Personeller" Role="F1_Personeller" Multiplicity="0..1" />
+          <End Type="Model.FirmaGenelBilgi" Role="FirmaGenelBilgi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="F1_Personeller">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FirmaGenelBilgi">
+              <PropertyRef Name="OrtakIliskisiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BankalarView">
+          <Key>
+            <PropertyRef Name="BankaKodu" />
+            <PropertyRef Name="BankaAdi" />
+          </Key>
+          <Property Name="BankaKodu" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="BankaAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ParaBirimleriView">
+          <Key>
+            <PropertyRef Name="ParaBirimiKodu" />
+            <PropertyRef Name="ParaBirimiAdi" />
+          </Key>
+          <Property Name="ParaBirimiKodu" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="ParaBirimiAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PersonellerView">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="IsimSoyisim" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsimSoyisim" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SektorView">
+          <Key>
+            <PropertyRef Name="SektorID" />
+            <PropertyRef Name="SektorAdi" />
+          </Key>
+          <Property Name="SektorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SektorAdi" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="F4_BelgeVeDokuman">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirmaID" Type="Int32" Nullable="false" />
+          <Property Name="SicilTasdik" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SicilGazet" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="İmzaSirkul" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="TSE" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ISO" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="HizmetYet" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Yetki" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="F3_SirketCalisanlari">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirmaID" Type="Int32" Nullable="false" />
+          <Property Name="Ad" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Soyad" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CepTel" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Dahili" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="CalisanTipi" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="HariciMalGrubuView">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Text" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="F3_UrunPortfoyu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirmaID" Type="Int32" Nullable="false" />
+          <Property Name="HariciMalTanimID" Type="Int32" Nullable="false" />
+          <Property Name="FaaliyetSekli" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="FirmaGenelBilgi" Relationship="Model.FK_F3_UrunPortfoyu_FirmaGenelBilgi" FromRole="F3_UrunPortfoyu" ToRole="FirmaGenelBilgi" />
+        </EntityType>
+        <Association Name="FK_F3_UrunPortfoyu_FirmaGenelBilgi">
+          <End Type="Model.FirmaGenelBilgi" Role="FirmaGenelBilgi" Multiplicity="1" />
+          <End Type="Model.F3_UrunPortfoyu" Role="F3_UrunPortfoyu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FirmaGenelBilgi">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="F3_UrunPortfoyu">
+              <PropertyRef Name="FirmaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="F3_HariciMal_Tanimlari">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HariciMalGrupID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Tanim" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Kod" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="F3_HariciMalGrubu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="FirmaKayitDBEntities">
+          <EntitySetMapping Name="F1_FabrikaAdresi">
+            <EntityTypeMapping TypeName="Model.F1_FabrikaAdresi">
+              <MappingFragment StoreEntitySet="F1_FabrikaAdresi">
+                <ScalarProperty Name="Mobil" ColumnName="Mobil" />
+                <ScalarProperty Name="Faks1" ColumnName="Faks1" />
+                <ScalarProperty Name="Telefon2" ColumnName="Telefon2" />
+                <ScalarProperty Name="Telefon1" ColumnName="Telefon1" />
+                <ScalarProperty Name="PostaKutusu" ColumnName="PostaKutusu" />
+                <ScalarProperty Name="Semt" ColumnName="Semt" />
+                <ScalarProperty Name="AcikAdres" ColumnName="AcikAdres" />
+                <ScalarProperty Name="PostaKodu" ColumnName="PostaKodu" />
+                <ScalarProperty Name="Sehir" ColumnName="Sehir" />
+                <ScalarProperty Name="FirmaID" ColumnName="FirmaID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="F1_MerkezAdresi">
+            <EntityTypeMapping TypeName="Model.F1_MerkezAdresi">
+              <MappingFragment StoreEntitySet="F1_MerkezAdresi">
+                <ScalarProperty Name="Mobil" ColumnName="Mobil" />
+                <ScalarProperty Name="Faks3" ColumnName="Faks3" />
+                <ScalarProperty Name="Faks2" ColumnName="Faks2" />
+                <ScalarProperty Name="Faks1" ColumnName="Faks1" />
+                <ScalarProperty Name="Telefon3" ColumnName="Telefon3" />
+                <ScalarProperty Name="Telefon2" ColumnName="Telefon2" />
+                <ScalarProperty Name="Telefon1" ColumnName="Telefon1" />
+                <ScalarProperty Name="PostaKutusu" ColumnName="PostaKutusu" />
+                <ScalarProperty Name="Semt" ColumnName="Semt" />
+                <ScalarProperty Name="AcikAdres" ColumnName="AcikAdres" />
+                <ScalarProperty Name="PostaKodu" ColumnName="PostaKodu" />
+                <ScalarProperty Name="Sehir" ColumnName="Sehir" />
+                <ScalarProperty Name="FirmaID" ColumnName="FirmaID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="F2_Referanslar">
+            <EntityTypeMapping TypeName="Model.F2_Referanslar">
+              <MappingFragment StoreEntitySet="F2_Referanslar">
+                <ScalarProperty Name="YurtIci" ColumnName="YurtIci" />
+                <ScalarProperty Name="Ciro" ColumnName="Ciro" />
+                <ScalarProperty Name="FirmaAdi" ColumnName="FirmaAdi" />
+                <ScalarProperty Name="FirmaID" ColumnName="FirmaID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="F1_SirketOrtaklari">
+            <EntityTypeMapping TypeName="Model.F1_SirketOrtaklari">
+              <MappingFragment StoreEntitySet="F1_SirketOrtaklari">
+                <ScalarProperty Name="FirmaID" ColumnName="FirmaID" />
+                <ScalarProperty Name="Ortaklik" ColumnName="Ortaklik" />
+                <ScalarProperty Name="Soyadi" ColumnName="Soyadi" />
+                <ScalarProperty Name="Adi" ColumnName="Adi" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="F2_FirmaGenelBilgi2">
+            <EntityTypeMapping TypeName="Model.F2_FirmaGenelBilgi2">
+              <MappingFragment StoreEntitySet="F2_FirmaGenelBilgi2">
+                <ScalarProperty Name="Diger_Sure" ColumnName="Diger_Sure" />
+                <ScalarProperty Name="Diger_K" ColumnName="Diger_K" />
+                <ScalarProperty Name="OHSAS18001_Sure" ColumnName="OHSAS18001_Sure" />
+                <ScalarProperty Name="OHSAS18001_K" ColumnName="OHSAS18001_K" />
+                <ScalarProperty Name="ISO14001_Sure" ColumnName="ISO14001_Sure" />
+                <ScalarProperty Name="ISO14001_K" ColumnName="ISO14001_K" />
+                <ScalarProperty Name="ISO9001_Sure" ColumnName="ISO9001_Sure" />
+                <ScalarProperty Name="ISO9001_K" ColumnName="ISO9001_K" />
+                <ScalarProperty Name="KaliteSistemiBelgesi" ColumnName="KaliteSistemiBelgesi" />
+                <ScalarProperty Name="TedarikciKaliteYonetim" ColumnName="TedarikciKaliteYonetim" />
+                <ScalarProperty Name="BagimsizDenetleme" ColumnName="BagimsizDenetleme" />
+                <ScalarProperty Name="Kalite" ColumnName="Kalite" />
+                <ScalarProperty Name="Satis" ColumnName="Satis" />
+                <ScalarProperty Name="OnYilFazlaPers" ColumnName="OnYilFazlaPers" />
+                <ScalarProperty Name="Uretim" ColumnName="Uretim" />
+                <ScalarProperty Name="IdariCalisan" ColumnName="IdariCalisan" />
+                <ScalarProperty Name="ToplamCalisanSayisi" ColumnName="ToplamCalisanSayisi" />
+                <ScalarProperty Name="SirketCiroYili" ColumnName="SirketCiroYili" />
+                <ScalarProperty Name="SirketCirosu" ColumnName="SirketCirosu" />
+                <ScalarProperty Name="FirmaFaliyetSekli" ColumnName="FirmaFaliyetSekli" />
+                <ScalarProperty Name="SektorID" ColumnName="SektorID" />
+                <ScalarProperty Name="FirmaID" ColumnName="FirmaID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FirmaGenelBilgi">
+            <EntityTypeMapping TypeName="Model.FirmaGenelBilgi">
+              <MappingFragment StoreEntitySet="FirmaGenelBilgi">
+                <ScalarProperty Name="yazismaAdresi" ColumnName="yazismaAdresi" />
+                <ScalarProperty Name="OrtakIliskisiId" ColumnName="OrtakIliskisiId" />
+                <ScalarProperty Name="TCNo" ColumnName="TCNo" />
+                <ScalarProperty Name="VergiNo" ColumnName="VergiNo" />
+                <ScalarProperty Name="VergiDairesi" ColumnName="VergiDairesi" />
+                <ScalarProperty Name="Email3" ColumnName="Email3" />
+                <ScalarProperty Name="Email2" ColumnName="Email2" />
+                <ScalarProperty Name="Email1" ColumnName="Email1" />
+                <ScalarProperty Name="WebAdresi" ColumnName="WebAdresi" />
+                <ScalarProperty Name="Sermaye" ColumnName="Sermaye" />
+                <ScalarProperty Name="OrtakIliskisi" ColumnName="OrtakIliskisi" />
+                <ScalarProperty Name="IliskiliTaraf" ColumnName="IliskiliTaraf" />
+                <ScalarProperty Name="KurulusYili" ColumnName="KurulusYili" />
+                <ScalarProperty Name="SirketTuru" ColumnName="SirketTuru" />
+                <ScalarProperty Name="FirmaAdi" ColumnName="FirmaAdi" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="F1_SubeAdresi">
+            <EntityTypeMapping TypeName="Model.F1_SubeAdresi">
+              <MappingFragment StoreEntitySet="F1_SubeAdresi">
+                <ScalarProperty Name="Mobil" ColumnName="Mobil" />
+                <ScalarProperty Name="Faks1" ColumnName="Faks1" />
+                <ScalarProperty Name="Telefon2" ColumnName="Telefon2" />
+                <ScalarProperty Name="Telefon1" ColumnName="Telefon1" />
+                <ScalarProperty Name="PostaKutusu" ColumnName="PostaKutusu" />
+                <ScalarProperty Name="Semt" ColumnName="Semt" />
+                <ScalarProperty Name="AcikAdres" ColumnName="AcikAdres" />
+                <ScalarProperty Name="PostaKodu" ColumnName="PostaKodu" />
+                <ScalarProperty Name="Sehir" ColumnName="Sehir" />
+                <ScalarProperty Name="FirmaID" ColumnName="FirmaID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="F2_BankaBilgileri">
+            <EntityTypeMapping TypeName="Model.F2_BankaBilgileri">
+              <MappingFragment StoreEntitySet="F2_BankaBilgileri">
+                <ScalarProperty Name="ParaBirimiKodu" ColumnName="ParaBirimiKodu" />
+                <ScalarProperty Name="IbanNo" ColumnName="IbanNo" />
+                <ScalarProperty Name="BankaKodu" ColumnName="BankaKodu" />
+                <ScalarProperty Name="FirmaID" ColumnName="FirmaID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="F3_FirmaGenelBilgi3">
+            <EntityTypeMapping TypeName="Model.F3_FirmaGenelBilgi3">
+              <MappingFragment StoreEntitySet="F3_FirmaGenelBilgi3">
+                <ScalarProperty Name="FormDolFaks" ColumnName="FormDolFaks" />
+                <ScalarProperty Name="FormDolTel" ColumnName="FormDolTel" />
+                <ScalarProperty Name="FormDolDepart" ColumnName="FormDolDepart" />
+                <ScalarProperty Name="FormDolUnvan" ColumnName="FormDolUnvan" />
+                <ScalarProperty Name="FormDolSoyad" ColumnName="FormDolSoyad" />
+                <ScalarProperty Name="FormDolAd" ColumnName="FormDolAd" />
+                <ScalarProperty Name="FirmaID" ColumnName="FirmaID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="F1_Personeller">
+            <EntityTypeMapping TypeName="Model.F1_Personeller">
+              <MappingFragment StoreEntitySet="F1_Personeller">
+                <ScalarProperty Name="IsimSoyisim" ColumnName="IsimSoyisim" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BankalarView">
+            <EntityTypeMapping TypeName="Model.BankalarView">
+              <MappingFragment StoreEntitySet="BankalarView">
+                <ScalarProperty Name="BankaAdi" ColumnName="BankaAdi" />
+                <ScalarProperty Name="BankaKodu" ColumnName="BankaKodu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParaBirimleriView">
+            <EntityTypeMapping TypeName="Model.ParaBirimleriView">
+              <MappingFragment StoreEntitySet="ParaBirimleriView">
+                <ScalarProperty Name="ParaBirimiAdi" ColumnName="ParaBirimiAdi" />
+                <ScalarProperty Name="ParaBirimiKodu" ColumnName="ParaBirimiKodu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonellerView">
+            <EntityTypeMapping TypeName="Model.PersonellerView">
+              <MappingFragment StoreEntitySet="PersonellerView">
+                <ScalarProperty Name="IsimSoyisim" ColumnName="IsimSoyisim" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SektorView">
+            <EntityTypeMapping TypeName="Model.SektorView">
+              <MappingFragment StoreEntitySet="SektorView">
+                <ScalarProperty Name="SektorAdi" ColumnName="SektorAdi" />
+                <ScalarProperty Name="SektorID" ColumnName="SektorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="F4_BelgeVeDokuman">
+            <EntityTypeMapping TypeName="Model.F4_BelgeVeDokuman">
+              <MappingFragment StoreEntitySet="F4_BelgeVeDokuman">
+                <ScalarProperty Name="Yetki" ColumnName="Yetki" />
+                <ScalarProperty Name="HizmetYet" ColumnName="HizmetYet" />
+                <ScalarProperty Name="ISO" ColumnName="ISO" />
+                <ScalarProperty Name="TSE" ColumnName="TSE" />
+                <ScalarProperty Name="İmzaSirkul" ColumnName="İmzaSirkul" />
+                <ScalarProperty Name="SicilGazet" ColumnName="SicilGazet" />
+                <ScalarProperty Name="SicilTasdik" ColumnName="SicilTasdik" />
+                <ScalarProperty Name="FirmaID" ColumnName="FirmaID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="F3_SirketCalisanlari">
+            <EntityTypeMapping TypeName="Model.F3_SirketCalisanlari">
+              <MappingFragment StoreEntitySet="F3_SirketCalisanlari">
+                <ScalarProperty Name="CalisanTipi" ColumnName="CalisanTipi" />
+                <ScalarProperty Name="Dahili" ColumnName="Dahili" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CepTel" ColumnName="CepTel" />
+                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="FirmaID" ColumnName="FirmaID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HariciMalGrubuView">
+            <EntityTypeMapping TypeName="Model.HariciMalGrubuView">
+              <MappingFragment StoreEntitySet="HariciMalGrubuView">
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="F3_UrunPortfoyu">
+            <EntityTypeMapping TypeName="Model.F3_UrunPortfoyu">
+              <MappingFragment StoreEntitySet="F3_UrunPortfoyu">
+                <ScalarProperty Name="FaaliyetSekli" ColumnName="FaaliyetSekli" />
+                <ScalarProperty Name="HariciMalTanimID" ColumnName="HariciMalTanimID" />
+                <ScalarProperty Name="FirmaID" ColumnName="FirmaID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="F3_HariciMal_Tanimlari">
+            <EntityTypeMapping TypeName="Model.F3_HariciMal_Tanimlari">
+              <MappingFragment StoreEntitySet="F3_HariciMal_Tanimlari">
+                <ScalarProperty Name="Kod" ColumnName="Kod" />
+                <ScalarProperty Name="Tanim" ColumnName="Tanim" />
+                <ScalarProperty Name="HariciMalGrupID" ColumnName="HariciMalGrupID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="F3_HariciMalGrubu">
+            <EntityTypeMapping TypeName="Model.F3_HariciMalGrubu">
+              <MappingFragment StoreEntitySet="F3_HariciMalGrubu">
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
