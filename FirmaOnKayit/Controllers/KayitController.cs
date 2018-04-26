@@ -9,14 +9,13 @@ using System.Web.Mvc;
 using FirmaOnKayit.Models;
 using System.Web.Routing;
 using System.IO;
+using FirmaOnKayit.Patterns;
 
 namespace FirmaOnKayit.Controllers
 {
     public class KayitController : Controller
     {
         private FirmaKayitDBEntities db = new FirmaKayitDBEntities();
-
-        static private Dictionary<string, int> sessionID_DBIndex = new Dictionary<string, int>();
 
         // GET: Kayit
         public ActionResult Index()
@@ -34,7 +33,7 @@ namespace FirmaOnKayit.Controllers
         {
             db.FirmaGenelBilgi.Add(s1m.firmaGenelBilgi);
             db.SaveChanges();
-
+            
             s1m.merkezAdresi.FirmaID = s1m.firmaGenelBilgi.ID;
             db.F1_MerkezAdresi.Add(s1m.merkezAdresi);
             db.SaveChanges();
@@ -189,6 +188,8 @@ namespace FirmaOnKayit.Controllers
 
             if (ModelState.IsValid)
             {
+                
+                //Transaction kullanılacak
                 int firmaID = DbKaydetSayfa1(subeAdresiEH, fabrikaAdresiEH, s1m);
 
                 DbKaydetSayfa2(firmaID, banka1CheckBox, banka2CheckBox, s2m);
@@ -206,7 +207,7 @@ namespace FirmaOnKayit.Controllers
         // GET
         public ActionResult Sayfa1()
         {
-            ViewBag.personeller = MvcApplication.personelListesi;
+            ViewBag.personeller = SingletonPattern.PersonelListesiGetir;
 
             ViewBag.subeRadio = "0";
             ViewBag.fabrikaRadio = "0";
@@ -219,7 +220,7 @@ namespace FirmaOnKayit.Controllers
         //[Bind(Include = "ID,FirmaAdi,SirketTuru,KurulusYili,IliskiliTaraf,OrtakIliskisi,Sermaye,WebAdresi,Email1,Email2,Email3,VergiDairesi,VergiNo,TCNo")] FirmaGenelBilgi firmaGenelBilgi
         public ActionResult Sayfa1(string subeAdresiEH, string fabrikaAdresiEH, Sayfa1Model tm)
         {
-            ViewBag.personeller = MvcApplication.personelListesi;
+            ViewBag.personeller = SingletonPattern.PersonelListesiGetir;
 
             ViewBag.subeRadio = subeAdresiEH;
             ViewBag.fabrikaRadio = fabrikaAdresiEH;
@@ -249,9 +250,9 @@ namespace FirmaOnKayit.Controllers
         // GET
         public ActionResult Sayfa2()
         {
-            ViewBag.bankalar = MvcApplication.bankaListesi;
+            ViewBag.bankalar = SingletonPattern.BankaListesiGetir;
 
-            ViewBag.paraBirimleri = MvcApplication.paraBirimListesi;
+            ViewBag.paraBirimleri = SingletonPattern.ParaBirimListesiGetir;
 
             ViewBag.sektor = from m in db.SektorView
                              select new SelectListItem
@@ -288,9 +289,9 @@ namespace FirmaOnKayit.Controllers
                 ViewBag.tabSayaci = 3;
             }
 
-            ViewBag.bankalar = MvcApplication.bankaListesi;
+            ViewBag.bankalar = SingletonPattern.BankaListesiGetir;
 
-            ViewBag.paraBirimleri = MvcApplication.paraBirimListesi;
+            ViewBag.paraBirimleri = SingletonPattern.ParaBirimListesiGetir;
 
             ViewBag.sektor = from m in db.SektorView
                              select new SelectListItem

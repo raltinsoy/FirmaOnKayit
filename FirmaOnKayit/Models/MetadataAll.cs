@@ -64,12 +64,15 @@ namespace FirmaOnKayit.Models
 
     public class FabrikaAdresi_Metadata
     {
+        [Display(Name = "Açık Adres")]
         [Required(ErrorMessage = "Adres giriniz.")]
         public string AcikAdres { get; set; }
 
+        [Display(Name = "Semt")]
         [Required(ErrorMessage = "Semt giriniz.")]
         public string Semt { get; set; }
 
+        [Display(Name = "Telefon")]
         [Required(ErrorMessage = "Telefon numarası giriniz.")]
         public string Telefon1 { get; set; }
     }
@@ -79,12 +82,15 @@ namespace FirmaOnKayit.Models
 
     public class SubeAdresi_Metadata
     {
+        [Display(Name = "Açık Adres")]
         [Required(ErrorMessage = "Adres giriniz.")]
         public string AcikAdres { get; set; }
 
+        [Display(Name = "Semt")]
         [Required(ErrorMessage = "Semt giriniz.")]
         public string Semt { get; set; }
 
+        [Display(Name = "Telefon")]
         [Required(ErrorMessage = "Telefon numarası giriniz.")]
         public string Telefon1 { get; set; }
     }
@@ -94,15 +100,19 @@ namespace FirmaOnKayit.Models
 
     public class MerkezAdresi_Metadata
     {
+        [Display(Name = "Açık Adres")]
         [Required(ErrorMessage = "Adres giriniz.")]
         public string AcikAdres { get; set; }
 
+        [Display(Name = "Semt")]
         [Required(ErrorMessage = "Semt giriniz.")]
         public string Semt { get; set; }
 
+        [Display(Name = "Telefon")]
         [Required(ErrorMessage = "Telefon numarası giriniz.")]
         public string Telefon1 { get; set; }
 
+        [Display(Name = "Faks")]
         [Required(ErrorMessage = "Faks numarası giriniz.")]
         public string Faks1 { get; set; }
     }
@@ -112,42 +122,58 @@ namespace FirmaOnKayit.Models
 
     public class FirmaGenelBilgi_Metadata
     {
+        [Display(Name = "Firma Adı")]
         [Required(ErrorMessage = "Firma adını yazınız.")]
         [MaxLength(70, ErrorMessage = "En fazla 70 karakter yazılabilir.")]
         public string FirmaAdi { get; set; }
 
+        [Display(Name = "Şirket Türü")]
         [Required(ErrorMessage = "Şirketin türünü seçiniz.")]
         [SirketTuruAtt("VergiNo", "TCNo", ErrorMessage = "Şirketin türünü seçiniz.")]
         public byte SirketTuru { get; set; }
 
+        [Display(Name = "Kuruluş Yılı")]
         [Required(ErrorMessage = "Kuruluş yılını giriniz.")]
         [Range(1800,2200)]
         public int KurulusYili { get; set; }
 
+        [Display(Name = "İlişkili Taraf")]
         [Required(ErrorMessage = "Seçilmedi.")]
         public bool IliskiliTaraf { get; set; }
 
+        [Display(Name = "Ortak İlişkisi")]
         [Required(ErrorMessage = "Seçilmedi.")]
         public bool OrtakIliskisi { get; set; }
 
+        [Display(Name = "Web Adresi")]
+        public string WebAdresi { get; set; }
+
+        [Display(Name = "Sermaye")]
         [Range(0, Int32.MaxValue, ErrorMessage = "Sayı giriniz.")]
         public int Sermaye { get; set; }
 
+        [Display(Name = "Email Adresi1")]
         [Required(ErrorMessage = "Zorunlu alan.")]
         public string Email1 { get; set; }
+        [Display(Name = "Email Adresi2")]
         public string Email2 { get; set; }
+        [Display(Name = "Email Adresi3")]
         public string Email3 { get; set; }
 
+        [Display(Name = "Vergi Dairesi")]
         [Required(ErrorMessage = "Zorunlu alan.")]
         [StringLength(11, ErrorMessage = "En fazla 11 karakter girilebilir.")]
         public string VergiDairesi { get; set; }
 
+        [Display(Name = "Yazışma Adresi")]
         [Required(ErrorMessage = "Zorunlu alan.")]
         public Nullable<byte> yazismaAdresi { get; set; }
 
+        [Display(Name = "Vergi No")]
         [RequiredIf("TCNo", ErrorMessage = "Vergi numarasını veya TC numarası giriniz.")]
         public string VergiNo { get; set; }
 
+        [Display(Name = "Tc No")]
         [RequiredIf("VergiNo", ErrorMessage = "Vergi numarasını veya TC numarası giriniz.")]
         [StringLength(11, ErrorMessage = "11 karakter giriniz.")]
         public string TCNo { get; set; }
